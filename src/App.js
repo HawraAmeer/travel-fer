@@ -1,12 +1,12 @@
 // Components
-import SignIn from "./components/Authentication/SignIn";
-import Signup from "./components/Authentication/SignUp";
+import NavBar from "./components/NavBar";
+import Routes from "./components/Routes";
 
 function App() {
   return (
     <>
-      <SignIn />
-      <Signup />
+      <NavBar />
+      <Routes />
     </>
   );
 }
