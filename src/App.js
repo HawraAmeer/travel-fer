@@ -1,13 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import SignIn from "./components/Authentication/SignIn";
-import Signup from './components/Authentication/SignUp';
+// Components
+import NavBar from "./components/NavBar";
+import Routes from "./components/Routes";
+
 function App() {
   return (
     <>
-      {/* <SignIn /> */}
-      <Signup  />
-      </>
+      <NavBar />
+      <Routes />
+    </>
   );
 }
 

@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { signin } from "../../store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+// Store
+import { signin } from "../../store/actions/authActions";
 
 const Signin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -21,7 +24,7 @@ const Signin = () => {
 
   return (
     <div className="container">
-      <h3>Signin</h3>
+      <h3>Sign in</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Username</label>

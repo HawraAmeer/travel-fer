@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { signup } from "../../store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+// Store
+import { signup } from "../../store/actions/authActions";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const [user, setUser] = useState({
     username: "",
-      password: "",
-    email:"",
+    password: "",
+    email: "",
   });
 
   const handleChange = (event) =>
@@ -22,23 +25,23 @@ const Signup = () => {
 
   return (
     <div className="container">
-      <h3>Signup</h3>
+      <h3>Sign up</h3>
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            name="email"
+            value={user.email}
+            type="text"
+            className="form-control"
+            onChange={handleChange}
+          />
+        </div>
         <div className="form-group">
           <label>Username</label>
           <input
             name="username"
             value={user.username}
-            type="text"
-            className="form-control"
-            onChange={handleChange}
-          />
-              </div>
-               <div className="form-group">
-          <label>Email</label>
-          <input
-            name="email"
-            value={user.email}
             type="text"
             className="form-control"
             onChange={handleChange}
