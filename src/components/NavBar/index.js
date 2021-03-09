@@ -24,15 +24,21 @@ const NavBar = () => {
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav ml-auto">
           {user ? (
-            <p style={{ padding: "1em", fontSize: "1em" }}>
-              Welcome, {user.username}
-              <FiLogOut
-                style={{ marginLeft: "3px" }}
-                onClick={() => dispatch(signout())}
-                size="1.75em"
-                color="black"
-              />
-            </p>
+            <>
+              <Link to="/profile">
+                <p style={{ padding: "1em", fontSize: "1em" }}>
+                  Welcome, {user.username}
+                </p>
+              </Link>
+              <Link to="/">
+                <FiLogOut
+                  style={{ margin: "1em" }}
+                  onClick={() => dispatch(signout())}
+                  size="1.75em"
+                  color="black"
+                />
+              </Link>
+            </>
           ) : (
             <>
               <Link to="/signin">

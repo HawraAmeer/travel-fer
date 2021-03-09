@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import * as types from "../actions/types";
 
 const setUser = (token) => {
+  console.log(decode(token));
   Cookies.set("token", token);
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   return {
@@ -56,5 +57,14 @@ export const checkForToken = () => (dispatch) => {
     } else {
       dispatch(signout());
     }
+  }
+};
+
+export const updateUser = (updatedUser) => async (dispatch) => {
+  try {
+    const res = await instance.put(`/${updatedUser.id}`, updatedUser);
+    dispatch(setUser(res.data.token));
+  } catch (error) {
+    console.log("ERROR: ", error);
   }
 };
