@@ -1,6 +1,8 @@
 import { Route, Switch } from "react-router";
-import Signin from "../Authentication/SignIn";
-import Signup from "../Authentication/SignUp";
+
+// Components
+import Signin from "../authentication/SignIn";
+import Signup from "../authentication/SignUp";
 
 const Routes = () => {
   return (
@@ -11,9 +13,6 @@ const Routes = () => {
       <Route path="/signin">
         <Signin />
       </Route>
-      {/* <Route path="/">
-        <Home />
-      </Route> */}
     </Switch>
   );
 };
