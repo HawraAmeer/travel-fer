@@ -1,9 +1,16 @@
 import { useState } from "react";
-import { FiEdit } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
+// Icons
+import { FiEdit } from "react-icons/fi";
+
+// Actions
+import { updateUser } from "../../store/actions/authActions";
+
 const Profile = () => {
+  const dispatch = useDispatch();
+
   const [user, setUser] = useState(
     useSelector((state) => state.authReducer.user)
   );
@@ -18,7 +25,7 @@ const Profile = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setEdit(!edit);
-    console.log(user);
+    dispatch(updateUser(user));
   };
 
   return (
