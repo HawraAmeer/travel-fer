@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import * as types from "../actions/types";
 
 const setUser = (token) => {
-  console.log(decode(token));
   Cookies.set("token", token);
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   return {
