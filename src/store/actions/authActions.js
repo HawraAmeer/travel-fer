@@ -1,25 +1,15 @@
 import instance from "./instance";
 import decode from "jwt-decode";
+import Cookies from "js-cookie";
+
 import * as types from "../actions/types";
 
 const setUser = (token) => {
-  localStorage.setItem("myToken", token);
+  Cookies.set("token", token);
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   return {
     type: types.SET_USER,
     payload: decode(token),
-  };
-};
-
-export const signup = (newUser, history) => {
-  return async (dispatch) => {
-    try {
-      const res = await instance.post("/signup", newUser);
-      dispatch(setUser(res.data.token));
-      history.replace("/");
-    } catch (error) {
-      console.log("🚀 ~ file: authActions.js ~ line 9 ~ return ~ error", error);
-    }
   };
 };
 
@@ -30,13 +20,25 @@ export const signin = (userData, history) => {
       dispatch(setUser(res.data.token));
       history.replace("/");
     } catch (error) {
-      console.log("🚀 ~ file: authActions.js ~ line 9 ~ return ~ error", error);
+      console.log("ERROR: ", error);
+    }
+  };
+};
+
+export const signup = (newUser, history) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.post("/signup", newUser);
+      dispatch(setUser(res.data.token));
+      history.replace("/");
+    } catch (error) {
+      console.log("ERROR: ", error);
     }
   };
 };
 
 export const signout = () => {
-  localStorage.removeItem("myToken");
+  Cookies.remove("token");
   delete instance.defaults.headers.common.Authorization;
   return {
     type: types.SET_USER,
@@ -45,7 +47,7 @@ export const signout = () => {
 };
 
 export const checkForToken = () => (dispatch) => {
-  const token = localStorage.getItem("myToken");
+  const token = Cookies.get("token");
   if (token) {
     const user = decode(token);
     const currentTime = Date.now();
