@@ -2,6 +2,7 @@ import { ADD_FLIGHT, FETCH_FLIGHTS, UPDATE_FLIGHT } from "../actions/types";
 
 const initialState = {
   flights: [],
+  // REVIEW: Add a loading
 };
 
 const reducer = (state = initialState, action) => {
