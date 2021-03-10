@@ -2,7 +2,10 @@ import { combineReducers } from "redux";
 
 // Reducers
 import authReducer from "./authReducer";
-
-const rootReducer = combineReducers({ authReducer });
+import flightsReducer from "./flightsReducer";
+const rootReducer = combineReducers({
+  authReducer,
+  flightsReducer,
+});
 
 export default rootReducer;
