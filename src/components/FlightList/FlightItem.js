@@ -3,23 +3,29 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 //actions
-import { fetchFlights } from "../../store/actions/flightsActions";
+import { fetchFlights } from "../../store/actions/flightActions";
 
-const FlightItem = ({ flights }) => {
-  const dispatch = useDispatch();
-  dispatch(fetchFlights(flights));
+const FlightItem = ({ flight }) => {
+  // const dispatch = useDispatch();
+  // dispatch(fetchFlights(flight));
   return (
-    <div className="col-lg-4 col-md-6 col-sm-6">
-      <Link to={`/flights/${flights.id}`}>
-        <p className="flights-dep">{flights.dep_loc}</p>
-        <p className="flights-arr">{flights.arrival_loc}</p>
-        <p className="flights-depDate">{flights.departureDate}</p>
-        <p className="flights-depTime">{flights.departureTime}</p>
-        <p className="flights-ecoSeats">{flights.economySeats}</p>
-        <p className="flights-busSeats">{flights.businessSeats}</p>
-        <p className="flights-price">{flights.price}</p>
-      </Link>
-    </div>
+    <>
+      <li className="list-group-item">
+        {flight.dep_loc}
+        <br></br>
+        {flight.departureDate}
+        <br></br>
+        {flight.departureTime}
+        <br></br>
+        {flight.arrival_loc}
+        <br></br>
+        {flight.businessSeats}
+        <br></br>
+        {flight.economySeats}
+        <br></br>
+        {flight.price}
+      </li>
+    </>
   );
 };
 

@@ -4,20 +4,20 @@ import { Route, Switch } from "react-router";
 // Components
 import Signin from "../authentication/SignIn";
 import Signup from "../authentication/SignUp";
-import FlightList from "../FlightList/FlightList";
-import FlightForm from "../forms/FlightsForm";
 import Profile from "../Profile";
+import Airline from "../Airline";
+import FlightForm from "../forms/FlightsForm";
 
 const Routes = () => {
-  const flights = useSelector((state) => state.flightsReducer.flights);
+  const flights = useSelector((state) => state.flightReducer.flights);
 
   return (
     <Switch>
-      <Route path={"/airlines/:airlineId/flights"}>
+      <Route path="/flights/new">
         <FlightForm />
       </Route>
       <Route path="/flights">
-        <FlightList flights={flights} />
+        <Airline />
       </Route>
       <Route path="/profile">
         <Profile />
@@ -28,6 +28,7 @@ const Routes = () => {
       <Route path="/signin">
         <Signin />
       </Route>
+      {/* add a 404 page */}
     </Switch>
   );
 };
