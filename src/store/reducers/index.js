@@ -2,10 +2,14 @@ import { combineReducers } from "redux";
 
 // Reducers
 import authReducer from "./authReducer";
-import flightsReducer from "./flightsReducer";
+import airlineReducer from "./airlineReducer";
+import locationReducer from "./locationReducer";
+import flightReducer from "./flightReducer";
 const rootReducer = combineReducers({
   authReducer,
-  flightsReducer,
+  flightReducer,
+  airlineReducer,
+  locationReducer,
 });
 
 export default rootReducer;
