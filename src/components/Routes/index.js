@@ -13,6 +13,8 @@ const Routes = () => {
 
   return (
     <Switch>
+      {/* REVIEW: Isn't the ID already in the token? Why do you need to pass it?  */}
+      {/* REVIEW: no need for the {} in the path if it's only one path  */}
       <Route path={"/airlines/:airlineId/flights"}>
         <FlightForm />
       </Route>
@@ -28,6 +30,7 @@ const Routes = () => {
       <Route path="/signin">
         <Signin />
       </Route>
+      {/* Review: For later: add a 404 page */}
     </Switch>
   );
 };

@@ -15,6 +15,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand">
       <Link className="navbar-brand" to="/">
+        {/* REVIEW: NO INLINE STYLING */}
         <img
           style={{ width: "5rem" }}
           src="https://www.clipartkey.com/mpngs/m/154-1545165_transparent-background-travel-icon-png.png"

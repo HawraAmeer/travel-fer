@@ -15,6 +15,7 @@ export const fetchFlights = () => async (dispatch) => {
 };
 
 export const addFlight = (newFlight) => async (dispatch) => {
+  // REVIW: Remove console logs when you're done from testing
   console.log(
     "🚀 ~ file: flightsActions.js ~ line 18 ~ addFlight ~ newFlight",
     newFlight

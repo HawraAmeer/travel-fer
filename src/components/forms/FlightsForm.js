@@ -52,6 +52,7 @@ const FlightForm = () => {
         />
       </div>
       <div className="mb-3">
+        {/* REVIEW: You're using camel case for the user :D */}
         <label className="form-label">departureTime</label>
         <input
           type="text"

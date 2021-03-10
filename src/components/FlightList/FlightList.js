@@ -7,7 +7,7 @@ const FlightList = ({ flights }) => {
   ));
   // .filter((flight) => flight.id)
   // .map((flight) => <FlightItem flight={flight} key={flight.id} />);
-
+  // REVIEW: remove commented out code
   return (
     <div className="container">
       <ul>

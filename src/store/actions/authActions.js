@@ -61,6 +61,7 @@ export const checkForToken = () => (dispatch) => {
 
 export const updateUser = (updatedUser) => async (dispatch) => {
   try {
+    // REVIEW: this id will make me cry wallah :')
     const res = await instance.put(`/${updatedUser.id}`, updatedUser);
     dispatch(setUser(res.data.token));
   } catch (error) {
