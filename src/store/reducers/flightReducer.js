@@ -7,7 +7,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.FETCH_FLIGHT:
+    case types.FETCH_FLIGHTS:
       return {
         ...state,
         flights: action.payload,
