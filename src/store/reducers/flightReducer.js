@@ -13,6 +13,14 @@ const reducer = (state = initialState, action) => {
         flights: action.payload,
         loading: false,
       };
+
+    case types.AIRLINE_FLIGHTS:
+      return {
+        ...state,
+        flights: action.payload,
+        loading: false,
+      };
+
     case types.ADD_FLIGHT:
       return {
         ...state,
