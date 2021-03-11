@@ -1,29 +1,31 @@
 import { Link } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-
-//actions
-import { fetchFlights } from "../../store/actions/flightActions";
-
 const FlightItem = ({ flight }) => {
-  // const dispatch = useDispatch();
-  // dispatch(fetchFlights(flight));
   return (
     <>
       <li className="list-group-item">
-        {flight.dep_loc}
-        <br></br>
-        {flight.departureDate}
-        <br></br>
-        {flight.departureTime}
-        <br></br>
-        {flight.arrival_loc}
-        <br></br>
-        {flight.businessSeats}
-        <br></br>
-        {flight.economySeats}
-        <br></br>
-        {flight.price}
+        <p>
+          Departure Airport: {flight.depAirport}, Departure Date:{" "}
+          {flight.depDate}
+        </p>
+        <p> Departure Time: {flight.depTime}</p>
+        <p>
+          Arrival Airport: {flight.arrAirport}, Arrival Date: {flight.arrDate}
+        </p>
+        <p> Arrival Time: {flight.arrTime}</p>
+        <p>Business Seats: {flight.business}</p>
+        <p>economy Seats: {flight.economy}</p>
+        <p>Price: {flight.price}</p>
+
+        <Link
+          className="navbar-brand"
+          to={{
+            pathname: `/flights/${flight.id}/edit`,
+            state: { airlineId: flight.airlineId },
+          }}
+        >
+          <button className="btn btn-primary float-right">Edit</button>
+        </Link>
       </li>
     </>
   );
