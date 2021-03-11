@@ -15,10 +15,12 @@ const reducer = (state = initialState, action) => {
       const foundAirlineIndex = state.airlines.findIndex(
         (airline) => airline.id === action.airlineId
       );
-      state.airlines[foundAirlineIndex].flights = [
-        ...state.airlines[foundAirlineIndex].flights,
-        ...action.payload,
-      ];
+      return {
+        ...(state.airlines[foundAirlineIndex].flights = [
+          ...state.airlines[foundAirlineIndex].flights,
+          ...action.payload,
+        ]),
+      };
 
     default:
       return state;

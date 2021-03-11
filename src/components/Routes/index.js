@@ -1,9 +1,8 @@
-import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router";
 
 // Components
-import Signin from "../authentication/SignIn";
-import Signup from "../authentication/SignUp";
+import Signin from "../authentication/Signin";
+import Signup from "../authentication/Signup";
 
 import BookingForm from "../forms/BookingForm";
 import FlightForm from "../forms/FlightsForm";

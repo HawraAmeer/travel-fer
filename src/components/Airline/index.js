@@ -15,10 +15,10 @@ const Airline = () => {
   if (!user || !user.isAirline) {
     return <Redirect to="/" />;
   }
+
   const flights = airline.flights.map((flight) =>
     allflights.find((_flight) => _flight.id === flight.id)
   );
-  console.log("🚀 ~ file: index.js ~ line 25 ~ Airline ~ flights", flights);
 
   return (
     <>{airline && <FlightList flights={flights} airlineId={airline.id} />}</>
