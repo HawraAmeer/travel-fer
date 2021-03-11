@@ -1,25 +1,33 @@
 import { Link } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-
-//actions
-import { fetchFlights } from "../../store/actions/flightsActions";
-
-const FlightItem = ({ flights }) => {
-  const dispatch = useDispatch();
-  dispatch(fetchFlights(flights));
+const FlightItem = ({ flight }) => {
   return (
-    <div className="col-lg-4 col-md-6 col-sm-6">
-      <Link to={`/flights/${flights.id}`}>
-        <p className="flights-dep">{flights.dep_loc}</p>
-        <p className="flights-arr">{flights.arrival_loc}</p>
-        <p className="flights-depDate">{flights.departureDate}</p>
-        <p className="flights-depTime">{flights.departureTime}</p>
-        <p className="flights-ecoSeats">{flights.economySeats}</p>
-        <p className="flights-busSeats">{flights.businessSeats}</p>
-        <p className="flights-price">{flights.price}</p>
-      </Link>
-    </div>
+    <>
+      <li className="list-group-item">
+        <p>
+          Departure Airport: {flight.depAirport}, Departure Date:{" "}
+          {flight.depDate}
+        </p>
+        <p> Departure Time: {flight.depTime}</p>
+        <p>
+          Arrival Airport: {flight.arrAirport}, Arrival Date: {flight.arrDate}
+        </p>
+        <p> Arrival Time: {flight.arrTime}</p>
+        <p>Business Seats: {flight.business}</p>
+        <p>economy Seats: {flight.economy}</p>
+        <p>Price: {flight.price}</p>
+
+        <Link
+          className="navbar-brand"
+          to={{
+            pathname: `/flights/${flight.id}/edit`,
+            state: { airlineId: flight.airlineId },
+          }}
+        >
+          <button className="btn btn-primary float-right">Edit</button>
+        </Link>
+      </li>
+    </>
   );
 };
 

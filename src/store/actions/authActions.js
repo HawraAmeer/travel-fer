@@ -13,6 +13,7 @@ const setUser = (token) => {
   };
 };
 
+//----------SIGN IN----------//
 export const signin = (userData, history) => {
   return async (dispatch) => {
     try {
@@ -25,6 +26,7 @@ export const signin = (userData, history) => {
   };
 };
 
+//----------SIGN UP----------//
 export const signup = (newUser, history) => {
   return async (dispatch) => {
     try {
@@ -37,6 +39,7 @@ export const signup = (newUser, history) => {
   };
 };
 
+//----------SIGN OUT----------//
 export const signout = () => {
   Cookies.remove("token");
   delete instance.defaults.headers.common.Authorization;
@@ -59,9 +62,10 @@ export const checkForToken = () => (dispatch) => {
   }
 };
 
+//----------Update Profile----------//
 export const updateUser = (updatedUser) => async (dispatch) => {
   try {
-    const res = await instance.put(`/${updatedUser.id}`, updatedUser);
+    const res = await instance.put(`/`, updatedUser);
     dispatch(setUser(res.data.token));
   } catch (error) {
     console.log("ERROR: ", error);
