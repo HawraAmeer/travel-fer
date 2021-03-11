@@ -32,7 +32,6 @@ const NavBar = () => {
               </Link>
               {user.isAirline && (
                 <Link to="/flights">
-                  {" "}
                   <p style={{ padding: "1em", fontSize: "1em" }}>Flights</p>
                 </Link>
               )}

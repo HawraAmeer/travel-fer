@@ -8,7 +8,7 @@ export const fetchFlight = () => {
     try {
       const res = await instance.get("/flights");
       dispatch({
-        type: types.FETCH_FLIGHT,
+        type: types.FETCH_FLIGHTS,
         payload: res.data,
       });
     } catch (error) {
