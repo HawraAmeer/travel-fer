@@ -8,15 +8,10 @@ import Signup from "../authentication/SignUp";
 import BookingForm from "../forms/BookingForm";
 import FlightForm from "../forms/FlightsForm";
 
-import FlightList from "../FlightList/FlightList";
 import Profile from "../Profile";
 import Airline from "../Airline";
 
-
 const Routes = () => {
-
-  const flights = useSelector((state) => state.flightsReducer.flights);
-
   return (
     <Switch>
       {/* will replaced with flightSlug, coming soon...*/}
