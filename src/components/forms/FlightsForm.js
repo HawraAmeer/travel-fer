@@ -10,11 +10,8 @@ const FlightForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const airlineId = useLocation().state.airlineId;
-  console.log(
-    "🚀 ~ file: FlightsForm.js ~ line 13 ~ FlightForm ~ airlineId",
-    airlineId
-  );
   const { flightId } = useParams();
+
   const foundFlight = useSelector((state) =>
     state.flightReducer.flights.find((flight) => flight.id === +flightId)
   );
@@ -24,18 +21,20 @@ const FlightForm = () => {
     <option value={`${location.id}`}>{location.name}</option>
   ));
 
-  const [flight, setFlight] = useState({
-    airlineId,
-    depAirport: foundFlight ? foundFlight.departure.id : "",
-    depDate: foundFlight ? foundFlight.depDate : "",
-    depTime: foundFlight ? foundFlight.depTime : "",
-    arrAirport: foundFlight ? foundFlight.arrival.id : "",
-    arrDate: foundFlight ? foundFlight.arrDate : "",
-    arrTime: foundFlight ? foundFlight.arrTime : "",
-    economy: foundFlight ? foundFlight.economy : "",
-    business: foundFlight ? foundFlight.business : "",
-    price: foundFlight ? foundFlight.price : "",
-  });
+  const [flight, setFlight] = useState(
+    foundFlight || {
+      airlineId,
+      depAirport: "",
+      depDate: "",
+      depTime: "",
+      arrAirport: "",
+      arrDate: "",
+      arrTime: "",
+      economy: "",
+      business: "",
+      price: "",
+    }
+  );
 
   const handleChange = (event) => {
     setFlight({ ...flight, [event.target.name]: event.target.value });
