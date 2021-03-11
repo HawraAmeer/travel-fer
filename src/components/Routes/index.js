@@ -13,7 +13,8 @@ const Routes = () => {
 
   return (
     <Switch>
-      <Route path="/flights/new">
+      {/* will replaced with flightSlug, coming soon...*/}
+      <Route path={["/flights/new", "/flights/:flightId?/edit"]}>
         <FlightForm />
       </Route>
       <Route path="/flights">

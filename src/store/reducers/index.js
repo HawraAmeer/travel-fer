@@ -3,12 +3,13 @@ import { combineReducers } from "redux";
 // Reducers
 import authReducer from "./authReducer";
 import airlineReducer from "./airlineReducer";
-import locationReducer from "./locationReducer";
 import flightReducer from "./flightReducer";
+import locationReducer from "./locationReducer";
+
 const rootReducer = combineReducers({
   authReducer,
-  flightReducer,
   airlineReducer,
+  flightReducer,
   locationReducer,
 });
 

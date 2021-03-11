@@ -1,9 +1,6 @@
 import * as types from "../actions/types";
 const initialState = {
-  locations: [
-    { id: 1, name: "bahrain" },
-    { id: 2, name: "dxb" },
-  ],
+  locations: [],
   loading: true,
 };
 
