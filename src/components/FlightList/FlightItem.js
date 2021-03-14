@@ -5,16 +5,16 @@ const FlightItem = ({ flight }) => {
     <>
       <li className="list-group-item">
         <p>
-          Departure Airport: {flight.depAirport}, Departure Date:{" "}
-          {flight.depDate}
+          Departure Airport: {flight.depAirport} || Departure Date:{" "}
+          {flight.depDate} || Departure Time: {flight.depTime}
         </p>
-        <p> Departure Time: {flight.depTime}</p>
         <p>
-          Arrival Airport: {flight.arrAirport}, Arrival Date: {flight.arrDate}
+          Arrival Airport: {flight.arrAirport} || Arrival Date: {flight.arrDate}{" "}
+          || Arrival Time: {flight.arrTime}
         </p>
-        <p> Arrival Time: {flight.arrTime}</p>
-        <p>Business Seats: {flight.business}</p>
-        <p>economy Seats: {flight.economy}</p>
+        <p>
+          Business Seats: {flight.business} || economy Seats: {flight.economy}
+        </p>
         <p>Price: {flight.price}</p>
 
         <Link
