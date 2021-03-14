@@ -14,17 +14,6 @@ const reducer = (state = initialState, action) => {
     case types.FETCH_AIRLINES:
       return { ...state, airlines: action.payload, loading: false };
 
-    case types.ADD_FLIGHT:
-      const foundAirlineIndex = state.airlines.findIndex(
-        (airline) => airline.id === action.airlineId
-      );
-      return {
-        ...(state.airlines[foundAirlineIndex].flights = [
-          ...state.airlines[foundAirlineIndex].flights,
-          ...action.payload,
-        ]),
-      };
-
     default:
       return state;
   }

@@ -17,32 +17,49 @@ export const fetchFlight = () => {
   };
 };
 
-//----------Add New Flight----------//
-export const addFlight = (newFlight) => {
+//----------Fetch Airline Flights----------//
+export const airlineFlights = (airlineId) => {
   return async (dispatch) => {
     try {
-      const res = await instance.post(
-        `/airlines/${newFlight.airlineId}/flights`,
-        newFlight
-      );
+      const res = await instance.get(`/airlines/${airlineId}/flights`);
       dispatch({
-        type: types.ADD_FLIGHT,
+        type: types.AIRLINE_FLIGHTS,
         payload: res.data,
-        airlineId: newFlight.airlineId,
       });
     } catch (error) {
-      console.log(error);
+      console.log("Error:", error);
     }
   };
 };
 
+//----------Add New Flight----------//
+export const addFlight = (newFlight) => async (dispatch) => {
+  try {
+    const res = await instance.post(
+      `/airlines/${newFlight.airlineId}/flights`,
+      newFlight
+    );
+    console.log(
+      "🚀 ~ file: flightActions.js ~ line 42 ~ addFlight ~ res",
+      res.data
+    );
+
+    dispatch({
+      type: types.ADD_FLIGHT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};
+
 //----------Update Flight----------//
-export const updateFlight = (UpatedFlight) => {
+export const updateFlight = (upatedFlight) => {
   return async (dispatch) => {
     try {
       const res = await instance.put(
-        `/flights/${UpatedFlight.id}`,
-        UpatedFlight
+        `/flights/${upatedFlight.id}`,
+        upatedFlight
       );
 
       dispatch({
