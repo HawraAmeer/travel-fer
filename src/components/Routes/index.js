@@ -13,6 +13,7 @@ import FlightForm from "../forms/FlightsForm";
 
 import AirlineHome from "../AirlineHome";
 import Home from "../Home";
+import PassengerForm from "../forms/PassengerForm";
 
 const Routes = () => {
   const user = useSelector((state) => state.authReducer.user);
@@ -21,6 +22,10 @@ const Routes = () => {
     <Switch>
       <Route exact path="/booking">
         <BookingForm />
+      </Route>
+
+      <Route exact path="/passenger">
+        <PassengerForm />
       </Route>
 
       <Route exact path={["/flights/new", "/flights/:flightId?/edit"]}>
