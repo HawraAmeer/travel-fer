@@ -12,7 +12,7 @@ import SeatsType from "./SeatsType";
 // Actions
 import { searchFlight } from "../../store/actions/flightActions";
 
-const Search = () => {
+const Search = ({ setIsSearching }) => {
   const dispatch = useDispatch();
   const [flight, setFlight] = useState({
     depAirport: "",
@@ -26,9 +26,11 @@ const Search = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    console.log(flight);
-    // dispatch(searchFlight(flight));
+    setIsSearching(true);
+    dispatch(searchFlight(flight));
+    setIsSearching(false);
   };
+
   return (
     <div className="container">
       <form onSubmit={handleSearch}>

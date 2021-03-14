@@ -61,9 +61,10 @@ export const updateFlight = (upatedFlight) => async (dispatch) => {
   }
 };
 
+//----------SEARCH FLIGHT----------//
 export const searchFlight = (flight) => async (dispatch) => {
   try {
-    const res = await instance.get("/flights/search", flight);
+    const res = await instance.post("/flights/search", flight);
 
     dispatch({
       type: types.SEARCH_FLIGHT,
