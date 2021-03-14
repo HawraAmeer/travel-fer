@@ -12,6 +12,7 @@ import BookingForm from "../forms/BookingForm";
 import FlightForm from "../forms/FlightsForm";
 
 import AirlineHome from "../AirlineHome";
+import Home from "../Home";
 
 const Routes = () => {
   const user = useSelector((state) => state.authReducer.user);
@@ -44,6 +45,10 @@ const Routes = () => {
 
       <Route exact path="/signin">
         <Signin />
+      </Route>
+
+      <Route exact path="/">
+        <Home />
       </Route>
 
       <Redirect to="/404" />
