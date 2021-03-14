@@ -1,5 +1,12 @@
+// Components
+import Search from "../Search";
+
 const Home = () => {
-  return <div></div>;
+  return (
+    <>
+      <Search />
+    </>
+  );
 };
 
 export default Home;
