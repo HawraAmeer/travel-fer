@@ -8,7 +8,7 @@ function PassengerForm() {
     firstName: "",
     lastName: "",
     // cpr: "",
-    ageGroup: ["Infant", "Children", "Young", "Adult", "Elders"],
+    ageGroup: ["Infant", "Child", "Adult"],
     // gender: ["male", "female"],
     // phone: "",
   });
