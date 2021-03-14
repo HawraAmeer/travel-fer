@@ -10,6 +10,7 @@ export const FETCH_FLIGHTS = "FETCH_FLIGHTS";
 export const AIRLINE_FLIGHTS = "AIRLINE_FLIGHTS";
 export const ADD_FLIGHT = "ADD_FLIGHT";
 export const UPDATE_FLIGHT = "UPDATE_FLIGHT";
+export const SEARCH_FLIGHT = "SEARCH_FLIGHT";
 
 // Location Types
 export const FETCH_LOCATION = "FETCH_LOCATION";

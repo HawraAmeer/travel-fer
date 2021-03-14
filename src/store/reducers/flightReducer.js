@@ -36,6 +36,13 @@ const reducer = (state = initialState, action) => {
         ),
       };
 
+    case types.SEARCH_FLIGHT:
+      return {
+        ...state,
+        flights: action.payload,
+        loading: false,
+      };
+
     default:
       return state;
   }

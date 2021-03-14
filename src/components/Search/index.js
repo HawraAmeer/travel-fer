@@ -9,6 +9,9 @@ import Date from "./Date";
 import Passengers from "./Passengers";
 import SeatsType from "./SeatsType";
 
+// Actions
+import { searchFlight } from "../../store/actions/flightActions";
+
 const Search = () => {
   const dispatch = useDispatch();
   const [flight, setFlight] = useState({
@@ -17,14 +20,14 @@ const Search = () => {
     depDate: moment().format("YYYY-MM-DD"),
     returnDate: moment().add(1, "days").format("YYYY-MM-DD"),
     passengers: 1,
-    seat: "economy", // Ecomony, Business
-    type: "roundtrip", // Roundtrip, Oneway
+    seat: "economy", // or business
+    type: "roundtrip", // or oneway
   });
 
   const handleSearch = (event) => {
     event.preventDefault();
     console.log(flight);
-    // dispatch(searchFlight(flight, navigation));
+    // dispatch(searchFlight(flight));
   };
   return (
     <div className="container">
@@ -46,7 +49,11 @@ const Search = () => {
         <SeatsType flight={flight} setFlight={setFlight} />
         <br />
         <div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={flight.depAirport === "" || flight.arrAirport === ""}
+          >
             Search
           </button>
         </div>
