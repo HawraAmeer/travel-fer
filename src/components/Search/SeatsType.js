@@ -8,7 +8,6 @@ const SeatsType = ({ flight, setFlight }) => {
           className="form-check-input"
           type="radio"
           name="seat"
-          id="inlineRadio1"
           value="economy"
           defaultChecked
           onChange={(event) =>
@@ -22,7 +21,6 @@ const SeatsType = ({ flight, setFlight }) => {
           className="form-check-input"
           type="radio"
           name="seat"
-          id="inlineRadio2"
           value="business"
           onChange={(event) =>
             setFlight({ ...flight, seat: event.currentTarget.value })
