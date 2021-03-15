@@ -12,11 +12,12 @@ import SeatsType from "./SeatsType";
 // Actions
 import { searchFlight } from "../../store/actions/flightActions";
 
-const Search = ({ setIsSearching }) => {
+const Search = () => {
   const dispatch = useDispatch();
+
   const [flight, setFlight] = useState({
-    depAirport: "",
-    arrAirport: "",
+    depAirport: 0,
+    arrAirport: 0,
     depDate: moment().format("YYYY-MM-DD"),
     returnDate: moment().add(1, "days").format("YYYY-MM-DD"),
     passengers: 1,
@@ -26,38 +27,48 @@ const Search = ({ setIsSearching }) => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    setIsSearching(true);
     dispatch(searchFlight(flight));
-    setIsSearching(false);
   };
 
   return (
     <div className="container">
       <form onSubmit={handleSearch}>
-        <Type flight={flight} setFlight={setFlight} />
+        <div className="row g-3">
+          <div className="col">
+            <Airport flight={flight} setFlight={setFlight} type="depAirport" />
+          </div>
+          <div className="col">
+            <Airport flight={flight} setFlight={setFlight} type="arrAirport" />
+          </div>
+          <div className="col">
+            <Date flight={flight} setFlight={setFlight} type="depDate" />
+          </div>
+          <div className="col">
+            {flight.type === "roundtrip" && (
+              <Date flight={flight} setFlight={setFlight} type="returnDate" />
+            )}
+          </div>
+          <div className="col">
+            <Passengers flight={flight} setFlight={setFlight} />
+          </div>
+        </div>
         <br />
-        <Airport flight={flight} setFlight={setFlight} type="depAirport" />
-        <br />
-        <Airport flight={flight} setFlight={setFlight} type="arrAirport" />
-        <br />
-        <Date flight={flight} setFlight={setFlight} type="depDate" />
-        <br />
-        {flight.type === "roundtrip" && (
-          <Date flight={flight} setFlight={setFlight} type="returnDate" />
-        )}
-        <br />
-        <Passengers flight={flight} setFlight={setFlight} />
-        <br />
-        <SeatsType flight={flight} setFlight={setFlight} />
-        <br />
-        <div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={flight.depAirport === "" || flight.arrAirport === ""}
-          >
-            Search
-          </button>
+        <div className="row g-3">
+          <div className="col-auto">
+            <Type flight={flight} setFlight={setFlight} />
+          </div>
+          <div className="col-auto">
+            <SeatsType flight={flight} setFlight={setFlight} />
+          </div>
+          <div className="col-auto">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={flight.depAirport === 0 || flight.arrAirport === 0}
+            >
+              Search
+            </button>
+          </div>
         </div>
       </form>
     </div>

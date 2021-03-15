@@ -8,7 +8,6 @@ const Type = ({ flight, setFlight }) => {
           className="form-check-input"
           type="radio"
           name="type"
-          id="inlineRadio1"
           value="roundtrip"
           defaultChecked
           onChange={(event) =>
@@ -22,7 +21,6 @@ const Type = ({ flight, setFlight }) => {
           className="form-check-input"
           type="radio"
           name="type"
-          id="inlineRadio2"
           value="oneway"
           onChange={(event) =>
             setFlight({ ...flight, type: event.currentTarget.value })

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
 const FlightItem = ({ flight, airlineId }) => {
-  console.log(flight);
   return (
     <>
       <li className="list-group-item">
+        <p>Airline: {flight.airline.name}</p>
         <p>
           Departure: {flight.departure.name} | {flight.depDate} |{" "}
           {flight.depTime}
@@ -17,6 +17,15 @@ const FlightItem = ({ flight, airlineId }) => {
           Business Seats: {flight.business} | economy Seats: {flight.economy} |
           Price: {flight.price}
         </p>
+
+        {!airlineId && (
+          <button
+            className="btn btn-primary float-right"
+            onClick={() => console.log(flight)}
+          >
+            Book
+          </button>
+        )}
 
         {airlineId && (
           <Link

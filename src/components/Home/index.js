@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
 // Components
@@ -7,16 +6,15 @@ import FlightList from "../FlightList";
 
 const Home = () => {
   const flightReducer = useSelector((state) => state.flightReducer);
-  const [isSearching, setIsSearching] = useState(true);
 
   return (
     <>
-      <Search setIsSearching={setIsSearching} />
+      <Search />
       <br />
-      {!isSearching && flightReducer.flights.length === 0 && (
-        <p>NO FLIGHTS MEETS YOUR CHOICES</p>
+      {flightReducer.flights.length === 0 && <p>NO FLIGHTS</p>}
+      {!flightReducer.loading && flightReducer.flights.length !== 0 && (
+        <FlightList flights={flightReducer.flights} />
       )}
-      {!isSearching && <FlightList flights={flightReducer.flights} />}
     </>
   );
 };

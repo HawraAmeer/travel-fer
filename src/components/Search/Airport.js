@@ -4,7 +4,13 @@ const Airport = ({ flight, setFlight, type }) => {
   const locations = useSelector((state) => state.locationReducer.locations);
 
   const findId = (name) => {
-    return locations.find((location) => location.name === name).id;
+    const location = locations.find((location) => location.name === name);
+    return location ? location.id : 0;
+  };
+
+  const findName = (id) => {
+    const location = locations.find((location) => location.id === id);
+    return location ? location.name : "";
   };
 
   return (
@@ -15,8 +21,8 @@ const Airport = ({ flight, setFlight, type }) => {
       <input
         className="form-control"
         list="datalistOptions"
-        id="exampleDataList"
         placeholder="Type to search..."
+        value={findName(flight[type])}
         onChange={(event) => {
           setFlight({ ...flight, [type]: findId(event.target.value) });
         }}
