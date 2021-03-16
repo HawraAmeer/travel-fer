@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 function BookingForm() {
   const history = useHistory();
 
+  //use Data from backend not predefine
   const [booking, setbooking] = useState({
     depAirport: "WWWAirport",
     depDate: "2021-03-15",
@@ -26,6 +27,7 @@ function BookingForm() {
     history.push("/passenger");
   };
 
+  //remove dead code if not needed
   return (
     <form className="container" onSubmit={handleSubmit}>
       <fieldset disabled="disabled">

@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 function PassengerForm() {
   const history = useHistory();
 
+  //remove dead code if not neede
   const [passenger, setPassenger] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +24,7 @@ function PassengerForm() {
     history.push("/passenger");
   };
 
+  //remove dead code if not neede
   return (
     <form className="container" onSubmit={handleSubmit}>
       <label className="form-label">

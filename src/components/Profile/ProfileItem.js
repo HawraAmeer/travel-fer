@@ -1,10 +1,10 @@
 import { useState } from "react";
 
+//Data should be from backend not predefine
 function ProfileItem() {
   const [ticket, setTicket] = useState({
     classNameType: "Economy",
     noOfPassenger: 3,
-
     depDate: "16-03-2021",
     arrDate: "17-03-2021",
     depTime: "14:00 Pm",
@@ -16,6 +16,9 @@ function ProfileItem() {
   const handleChange = (event) => {
     setTicket({ ...ticket, [event.target.name]: event.target.value });
   };
+
+  //remove other table row if not needed
+  //dont use inline styling
   return (
     <>
       <table className="table table-striped table-hover">
