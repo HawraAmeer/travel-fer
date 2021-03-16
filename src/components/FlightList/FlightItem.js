@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import BookButton from "../buttons/BookButton";
 
 const FlightItem = ({ flight, airlineId }) => {
+  const history = useHistory();
+
   return (
     <>
       <li className="list-group-item">
@@ -18,13 +21,8 @@ const FlightItem = ({ flight, airlineId }) => {
           Price: {flight.price}
         </p>
 
-        {!airlineId && (
-          <button
-            className="btn btn-primary float-right"
-            onClick={() => console.log(flight)}
-          >
-            Book
-          </button>
+        {!airlineId && history.location.pathname === "/" && (
+          <BookButton flight={flight} />
         )}
 
         {airlineId && (

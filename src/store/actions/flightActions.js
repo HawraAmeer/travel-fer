@@ -68,8 +68,20 @@ export const searchFlight = (flight) => async (dispatch) => {
 
     dispatch({
       type: types.SEARCH_FLIGHT,
-      payload: res.data,
+      payload: { flights: res.data, searchFlight: flight },
     });
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};
+
+export const setFlight = (flight) => {
+  return { type: types.SET_FLIGHT, payload: flight };
+};
+
+export const bookFlight = (booking) => async () => {
+  try {
+    const res = await instance.post("/checkout", booking);
   } catch (error) {
     console.log("Error:", error);
   }

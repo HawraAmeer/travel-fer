@@ -1,4 +1,4 @@
-const Filter = ({ filter, setFilter, min, max, airlines }) => {
+const Filter = ({ filter, setFilter, min, max, airlines, resultsLength }) => {
   const checkedAirlines = (airlineName) => {
     const foundAirline = filter.airline.find((name) => name === airlineName);
     if (foundAirline) {
@@ -13,6 +13,17 @@ const Filter = ({ filter, setFilter, min, max, airlines }) => {
       });
     }
   };
+
+  const airlinesList = airlines.map((airlineName) => (
+    <div key={airlineName} className="form-check">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        onChange={() => checkedAirlines(airlineName)}
+      />
+      <label className="form-check-label">{airlineName}</label>
+    </div>
+  ));
 
   return (
     <>
@@ -38,39 +49,36 @@ const Filter = ({ filter, setFilter, min, max, airlines }) => {
         </div>
       )}
       <br />
-      <label>Airlines</label>
-      {airlines.map((airlineName) => (
-        <div key={airlineName} className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            onChange={() => checkedAirlines(airlineName)}
-          />
-          <label className="form-check-label">{airlineName}</label>
-        </div>
-      ))}
+      {airlines.length > 1 && (
+        <>
+          <label>Airlines</label>
+          {airlinesList}
+        </>
+      )}
       <br />
-      <div>
-        <label className="form-label d-flex justify-content-start">
-          Departure Time
-        </label>
-        <input
-          type="range"
-          className="form-range"
-          min={4}
-          max={24}
-          step={4}
-          value={filter.time ? filter.time : 4}
-          onChange={(event) =>
-            setFilter({ ...filter, time: event.target.value })
-          }
-        />
-        <label className="form-label">
-          {filter.time
-            ? `${filter.time - 4}:00 - ${filter.time}:00`
-            : "00:00 - 23:59"}
-        </label>
-      </div>
+      {resultsLength > 1 && (
+        <div>
+          <label className="form-label d-flex justify-content-start">
+            Departure Time
+          </label>
+          <input
+            type="range"
+            className="form-range"
+            min={4}
+            max={24}
+            step={4}
+            value={filter.time ? filter.time : 4}
+            onChange={(event) =>
+              setFilter({ ...filter, time: event.target.value })
+            }
+          />
+          <label className="form-label">
+            {filter.time
+              ? `${filter.time - 4}:00 - ${filter.time}:00`
+              : "00:00 - 23:59"}
+          </label>
+        </div>
+      )}
     </>
   );
 };

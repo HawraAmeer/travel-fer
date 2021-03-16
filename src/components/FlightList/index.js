@@ -62,10 +62,6 @@ const FlightList = ({ flights, airlineId }) => {
   const flightList = filtering(flights).map((flight) => (
     <FlightItem flight={flight} key={flight.id} airlineId={airlineId} />
   ));
-  console.log(
-    "🚀 ~ file: index.js ~ line 65 ~ FlightList ~ flightList",
-    flightList
-  );
 
   const flightLoading = useSelector((state) => state.flightReducer.loading);
 
@@ -94,6 +90,7 @@ const FlightList = ({ flights, airlineId }) => {
             min={minRange()}
             max={maxRange()}
             airlines={airlines}
+            resultsLength={flightList.length}
           />
         </div>
         <div className="col">

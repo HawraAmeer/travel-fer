@@ -14,7 +14,9 @@ import FlightForm from "../forms/FlightsForm";
 import AirlineHome from "../AirlineHome";
 import Home from "../Home";
 import PassengerForm from "../forms/PassengerForm";
+import Booking from "../Booking";
 import ProfileItem from "../Profile/ProfileItem";
+
 
 const Routes = () => {
   const user = useSelector((state) => state.authReducer.user);
@@ -39,6 +41,14 @@ const Routes = () => {
 
       <Route path="/404">
         <NotFound />
+      </Route>
+
+      <Route exact path="/booking-review">
+        <Booking />
+      </Route>
+
+      <Route exact path="/return-flight">
+        <Home />
       </Route>
 
       <Route exact path="/profile">
