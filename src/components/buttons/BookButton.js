@@ -40,23 +40,3 @@ const BookButton = ({ flight }) => {
 };
 
 export default BookButton;
-
-// //SET Flight , departure or arrival will be determind in flight reducer
-// dispatch(setFlight(flight));
-// if (searchedFlight.type === "oneway") {
-//   navigation.navigate("Passenger"); //departure flight will sent to passenger form
-// } else {
-//   const returnFlight = {
-//     depAirport: flight.arrival.id,
-//     arrAirport: flight.departure.id,
-//     depDate: searchedFlight.returnDate,
-//     passengers: searchedFlight.passengers,
-//     seat: searchedFlight.seat,
-//     type: "oneway",
-//   };
-//   //if the user will return on the same day
-//   if (searchedFlight.depDate === searchedFlight.returnDate)
-//     returnFlight.arrTime = flight.arrTime;
-//   dispatch(searchFlight(returnFlight));
-//   navigation.navigate("FlightList");
-// }

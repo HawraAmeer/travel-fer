@@ -21,7 +21,7 @@ const FlightItem = ({ flight, airlineId }) => {
           Price: {flight.price}
         </p>
 
-        {!airlineId && history.location.pathname !== "/booking" && (
+        {!airlineId && history.location.pathname === "/" && (
           <BookButton flight={flight} />
         )}
 
