@@ -14,6 +14,7 @@ import FlightForm from "../forms/FlightsForm";
 import AirlineHome from "../AirlineHome";
 import Home from "../Home";
 import PassengerForm from "../forms/PassengerForm";
+import ProfileItem from "../Profile/ProfileItem";
 
 const Routes = () => {
   const user = useSelector((state) => state.authReducer.user);
