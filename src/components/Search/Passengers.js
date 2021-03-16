@@ -8,7 +8,7 @@ const Passengers = ({ flight, setFlight }) => {
         min={1}
         value={flight.passengers}
         onChange={(event) =>
-          setFlight({ ...flight, passengers: event.target.value })
+          setFlight({ ...flight, passengers: +event.target.value })
         }
       />
     </>

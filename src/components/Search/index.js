@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
 // Components
@@ -14,16 +14,29 @@ import { searchFlight } from "../../store/actions/flightActions";
 
 const Search = () => {
   const dispatch = useDispatch();
+  const search = useSelector((state) => state.flightReducer.searchFlight);
+  console.log("🚀 ~ file: index.js ~ line 19 ~ Search ~ search", search);
 
-  const [flight, setFlight] = useState({
-    depAirport: 0,
-    arrAirport: 0,
-    depDate: moment().format("YYYY-MM-DD"),
-    returnDate: moment().add(1, "days").format("YYYY-MM-DD"),
-    passengers: 1,
-    seat: "economy", // or business
-    type: "roundtrip", // or oneway
+  useEffect(() => {
+    checkSearch();
   });
+
+  const [flight, setFlight] = useState(
+    search ?? {
+      depAirport: 0,
+      arrAirport: 0,
+      depDate: moment().format("YYYY-MM-DD"),
+      returnDate: moment().add(1, "days").format("YYYY-MM-DD"),
+      passengers: 1,
+      seat: "economy", // or business
+      type: "roundtrip", // or oneway
+    }
+  );
+  console.log("🚀 ~ file: index.js ~ line 22 ~ Search ~ flight", flight);
+
+  const checkSearch = () => {
+    if (search) setFlight(search);
+  };
 
   const handleSearch = (event) => {
     event.preventDefault();

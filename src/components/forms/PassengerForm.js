@@ -1,16 +1,12 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
 
-function PassengerForm() {
-  const history = useHistory();
+function PassengerForm({ passengers, setPassengers, number }) {
+  const [done, setDone] = useState(false);
 
   const [passenger, setPassenger] = useState({
     firstName: "",
     lastName: "",
-    // cpr: "",
-    ageGroup: ["Infant", "Child", "Adult"],
-    // gender: ["male", "female"],
-    // phone: "",
+    ageGroup: "",
   });
 
   const handleChange = (event) => {
@@ -19,23 +15,23 @@ function PassengerForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    history.push("/passenger");
+    setPassengers([...passengers, passenger]);
+    setDone(!done);
   };
 
   return (
     <form className="container" onSubmit={handleSubmit}>
       <label className="form-label">
-        <h2>Passenger1</h2>
+        <h2>Passenger {number}</h2>
       </label>
-      {/* <h1>{foundPassenger ? "Update" : "Create"} Passenger</h1> */}
+
       <div className="mb-3">
         <label className="form-label">First Name</label>
         <input
           type="text"
           value={passenger.firstName}
           onChange={handleChange}
-          name=" firstName"
+          name="firstName"
           className="form-control"
         />
       </div>
@@ -45,20 +41,11 @@ function PassengerForm() {
           type="text"
           value={passenger.lastName}
           onChange={handleChange}
-          name=" lastName"
+          name="lastName"
           className="form-control"
         />
       </div>
-      {/* <div className="mb-3">
-        <label className="form-label">CPR</label>
-        <input
-          type="text"
-          value={passenger.cpr}
-          onChange={handleChange}
-          name=" cpr"
-          className="form-control"
-        />
-      </div> */}
+
       <div className="mb-3">
         <label className="form-label">Age Group</label>
         <select
@@ -66,39 +53,17 @@ function PassengerForm() {
           onChange={handleChange}
           className="form-control"
         >
-          {passenger.ageGroup.map((p) => (
-            <option selected={passenger.ageGroup === p} value={p}>
-              {p}
-            </option>
-          ))}
-        </select>
-      </div>
-      {/* <div className="mb-3">
-        <label className="form-label">Gender</label>
-        <select name="gender" onChange={handleChange} className="form-control">
-          {passenger.gender.map((p) => (
-            <option selected={passenger.gender === p} value={p}>
-              {p}
-            </option>
-          ))}
+          <option value="Infant">Infant</option>
+          <option value="Child">Child</option>
+          <option value="Adult">Adult</option>
         </select>
       </div>
 
-      <div className="mb-3">
-        <label className="form-label">Phone</label>
-        <input
-          type="text"
-          value={passenger.phone}
-          onChange={handleChange}
-          name=" phone"
-          className="form-control"
-        />
-      </div> */}
-
-      <button type="submit" className="btn btn-info float-right">
-        {/* {foundPassenger ? "Update" : "Create"} */}
-        Book
-      </button>
+      {!done && (
+        <button type="submit" className="btn btn-info float-right">
+          Add
+        </button>
+      )}
     </form>
   );
 }

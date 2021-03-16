@@ -1,137 +1,53 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+
+// Components
+import FlightItem from "../FlightList/FlightItem";
+import PassengerForm from "./PassengerForm";
 
 function BookingForm() {
-  const history = useHistory();
+  const flightReducer = useSelector((state) => state.flightReducer);
 
-  const [booking, setbooking] = useState({
-    depAirport: "WWWAirport",
-    depDate: "2021-03-15",
-    depTime: "15:00",
-    arrAirport: "DDDAirport",
-    arrDate: "2021-03-15",
-    arrTime: "17:00",
-    economy: 20,
-    business: 10,
-    price: 280,
-  });
-
-  const handleChange = (event) => {
-    setbooking({ ...booking, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    history.push("/passenger");
-  };
+  const [passengers, setPassengers] = useState([]);
+  console.log(
+    "🚀 ~ file: BookingForm.js ~ line 11 ~ BookingForm ~ passengers",
+    passengers
+  );
+  const passengersForm = new Array(flightReducer.searchFlight.passengers)
+    .fill()
+    .map((item, index) => (
+      <div className="col" key={index + 1}>
+        <PassengerForm
+          key={index}
+          passengers={passengers}
+          setPassengers={setPassengers}
+          number={index + 1}
+        />
+      </div>
+    ));
 
   return (
-    <form className="container" onSubmit={handleSubmit}>
-      <fieldset disabled="disabled">
-        <label className="form-label">
-          <h2>Booking Form</h2>
-        </label>
-        {/* <h1>{foundPassenger ? "Update" : "Create"} Passenger</h1> */}
-        <div className="mb-3">
-          <label className="form-label">Departure Airport</label>
-          <input
-            type="text"
-            value={booking.depAirport}
-            onChange={handleChange}
-            name="depAirport"
-            className="form-control"
-          />
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="col-auto">
+            <FlightItem flight={flightReducer.goFlight} />
+          </div>
+          <div className="col-auto">
+            <FlightItem flight={flightReducer.returnFlight} />
+          </div>
         </div>
-
-        <div className="mb-3">
-          <label className="form-label">Departure Date</label>
-          <input
-            type="text"
-            value={booking.depDate}
-            onChange={handleChange}
-            name="depDate"
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Departure Time</label>
-          <input
-            type="text"
-            value={booking.depTime}
-            onChange={handleChange}
-            name="depTime"
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Arrival Airport</label>
-          <input
-            type="text"
-            value={booking.arrAirport}
-            onChange={handleChange}
-            name="arrAirport"
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Arrival Date</label>
-          <input
-            type="text"
-            value={booking.arrDate}
-            onChange={handleChange}
-            name="arrDate"
-            className="form-control"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Arrival Time</label>
-          <input
-            type="text"
-            value={booking.arrTime}
-            onChange={handleChange}
-            name="arrTime"
-            className="form-control"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Economy </label>
-          <input
-            type="text"
-            value={booking.economy}
-            onChange={handleChange}
-            name="economy"
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Business</label>
-          <input
-            type="text"
-            value={booking.business}
-            onChange={handleChange}
-            name="business"
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Price</label>
-          <input
-            type="text"
-            value={booking.price}
-            onChange={handleChange}
-            name="price"
-            className="form-control"
-          />
-        </div>
-      </fieldset>
-      <button type="submit" className="btn btn-info float-right">
-        {/* {foundPassenger ? "Update" : "Create"} */}
-        Next
-      </button>
-    </form>
+      </div>
+      <br />
+      <div className="container">
+        <div className="row">{passengersForm}</div>
+        {passengers.length === passengersForm.length && (
+          <div className="row">
+            <button className="btn btn-primary float-right">Next</button>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

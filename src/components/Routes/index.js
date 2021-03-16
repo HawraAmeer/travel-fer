@@ -40,6 +40,10 @@ const Routes = () => {
         <NotFound />
       </Route>
 
+      <Route exact path="/return-flight">
+        <Home />
+      </Route>
+
       <Route exact path="/profile">
         <Profile />
       </Route>
