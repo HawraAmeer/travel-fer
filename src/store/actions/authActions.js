@@ -71,3 +71,15 @@ export const updateUser = (updatedUser) => async (dispatch) => {
     console.log("ERROR: ", error);
   }
 };
+
+export const fetchHistory = () => async (dispatch) => {
+  try {
+    const res = await instance.get(`/`);
+    dispatch({
+      type: types.FETCH_HISTORY,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log("ERROR: ", error);
+  }
+};

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
@@ -6,22 +6,27 @@ import { Redirect } from "react-router";
 import { FiEdit } from "react-icons/fi";
 
 // Actions
-import { updateUser } from "../../store/actions/authActions";
+import { fetchHistory, updateUser } from "../../store/actions/authActions";
 
 //Components
 import ProfileItem from "./ProfileItem";
+import Loading from "../Loading";
 
 const Profile = () => {
   const dispatch = useDispatch();
-
-  const [user, setUser] = useState(
-    useSelector((state) => state.authReducer.user)
-  );
+  const userReducer = useSelector((state) => state.authReducer);
+  const [user, setUser] = useState(userReducer.user);
 
   const [edit, setEdit] = useState(false);
 
+  useEffect(() => {
+    dispatch(fetchHistory());
+  }, [dispatch]);
+
   if (!user) return <Redirect to="/" />;
 
+  if (userReducer.loading) return <Loading />;
+  console.log(userReducer.history);
   const handleChange = (event) =>
     setUser({ ...user, [event.target.name]: event.target.value });
 
@@ -62,8 +67,37 @@ const Profile = () => {
           </h6>
         )}
       </div>
-      <div>
-        <ProfileItem />
+      <br />
+      <div className="container">
+        <table className="table">
+          <thead>
+            <h3>Booking History</h3>
+            <tr>
+              <td>
+                <tr>Departure</tr>
+                <tr>
+                  <td>Airport</td>
+                  <td>Date</td>
+                  <td>Time</td>
+                </tr>
+              </td>
+              <td>
+                <tr>Arrival</tr>
+                <tr>
+                  <td>Airport</td>
+                  <td>Date</td>
+                  <td>Time</td>
+                </tr>
+              </td>
+
+              <td>Seat Type</td>
+              <td># of Passengers</td>
+            </tr>
+          </thead>
+          <tbody>
+            <ProfileItem />
+          </tbody>
+        </table>
       </div>
     </>
   );

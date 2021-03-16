@@ -1,5 +1,6 @@
 // User Types
 export const SET_USER = "SET_USER";
+export const FETCH_HISTORY = "FETCH_HISTORY";
 
 // Airline Types
 export const FETCH_AIRLINE = "FETCH_AIRLINE";

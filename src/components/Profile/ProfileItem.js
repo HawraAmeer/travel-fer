@@ -17,45 +17,25 @@ function ProfileItem() {
     setTicket({ ...ticket, [event.target.name]: event.target.value });
   };
   return (
-    <>
-      <table className="table table-striped table-hover">
-        <div className="table-responsive">
-          <table className="table align-middle">
-            <thead>
-              <h3 className="list-group-item-heading">Booking History</h3>
-            </thead>
-            <tbody>
-              <tr className="align-bottom">
-                <td>
-                  <div className="col-sm-5">
-                    <dt class="col-sm-3">
-                      <h5 className="list-group-item-heading">
-                        {ticket.classNameType}
-                      </h5>
-                    </dt>
+    <tr>
+      <td>
+        <tr>
+          <td>BAH</td>
+          <td>6 May 2021</td>
+          <td>3:37</td>
+        </tr>
+      </td>
+      <td>
+        <tr>
+          <td>DXB</td>
+          <td>17 May 2021</td>
+          <td>7:37</td>
+        </tr>
+      </td>
 
-                    <dd className="col-sm-9" style={{ paddingLeft: "40px" }}>
-                      <p className="list-group-item-text">
-                        Passsengers: {ticket.noOfPassenger}
-                      </p>
-                      <p className="list-group-item-text">
-                        From {ticket.from} To {ticket.to}
-                      </p>
-                      <p className="list-group-item-text">
-                        {ticket.depDate} To {ticket.arrDate}
-                      </p>
-                      <p className="list-group-item-text">
-                        {ticket.depTime} To {ticket.arrTime}
-                      </p>
-                    </dd>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </table>
-    </>
+      <td>economy</td>
+      <td>3</td>
+    </tr>
   );
 }
 
