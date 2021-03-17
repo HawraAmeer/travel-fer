@@ -30,11 +30,6 @@ const NavBar = () => {
                   Welcome, {user.username}
                 </p>
               </Link>
-              {user.airlineId !== 0 && (
-                <Link to="/flights">
-                  <p style={{ padding: "1em", fontSize: "1em" }}>Flights</p>
-                </Link>
-              )}
               <Link to="/">
                 <FiLogOut
                   style={{ margin: "1em" }}
