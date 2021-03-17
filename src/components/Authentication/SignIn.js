@@ -2,17 +2,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-// Store
+// Actions
 import { signin } from "../../store/actions/authActions";
 
 const Signin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
+  const [user, setUser] = useState({ username: "", password: "" });
 
   const handleChange = (event) =>
     setUser({ ...user, [event.target.name]: event.target.value });

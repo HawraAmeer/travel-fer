@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Icon
 import { FiLogOut } from "react-icons/fi";
 
-// Store Action
+// Actions
 import { signout } from "../../store/actions/authActions";
 
 const NavBar = () => {
@@ -30,7 +30,7 @@ const NavBar = () => {
                   Welcome, {user.username}
                 </p>
               </Link>
-              {user.isAirline && (
+              {user.airlineId !== 0 && (
                 <Link to="/flights">
                   <p style={{ padding: "1em", fontSize: "1em" }}>Flights</p>
                 </Link>

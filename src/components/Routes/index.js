@@ -2,21 +2,17 @@ import { Redirect, Route, Switch } from "react-router";
 import { useSelector } from "react-redux";
 
 // Components
+import NotFound from "../NotFound";
+import Home from "../Home";
 import Signin from "../authentication/Signin";
 import Signup from "../authentication/Signup";
 import Profile from "../Profile";
 
-import NotFound from "../NotFound";
-
 import BookingForm from "../forms/BookingForm";
 import FlightForm from "../forms/FlightsForm";
-
 import AirlineHome from "../AirlineHome";
-import Home from "../Home";
 import PassengerForm from "../forms/PassengerForm";
 import Booking from "../Booking";
-import ProfileItem from "../Profile/ProfileItem";
-
 
 const Routes = () => {
   const user = useSelector((state) => state.authReducer.user);
@@ -35,12 +31,8 @@ const Routes = () => {
         <FlightForm />
       </Route>
 
-      <Route exact path="/flights">
+      <Route exact path="/airline">
         <AirlineHome />
-      </Route>
-
-      <Route path="/404">
-        <NotFound />
       </Route>
 
       <Route exact path="/booking-review">
@@ -50,7 +42,7 @@ const Routes = () => {
       <Route exact path="/return-flight">
         <Home />
       </Route>
-
+      {/* Okey here and down */}
       <Route exact path="/profile">
         <Profile />
       </Route>
@@ -65,6 +57,10 @@ const Routes = () => {
 
       <Route exact path="/">
         <Home />
+      </Route>
+
+      <Route path="/404">
+        <NotFound />
       </Route>
 
       <Redirect to="/404" />
