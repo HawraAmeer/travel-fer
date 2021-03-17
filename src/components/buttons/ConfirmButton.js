@@ -1,9 +1,23 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bookFlight } from "../../store/actions/flightActions";
+import Modal from "react-modal";
+import { useHistory } from "react-router";
 
 const ConfirmButton = ({ user }) => {
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+
   const dispatch = useDispatch();
+  const history = useHistory();
   const flightReducer = useSelector((state) => state.flightReducer);
   const passengers = useSelector((state) => state.passengerReducer.passengers);
 
@@ -17,15 +31,44 @@ const ConfirmButton = ({ user }) => {
     returnFlight: { flightId: returnFlight.id, seat: "economy" },
   });
 
+  Modal.setAppElement("#root");
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleBooking = () => {
     console.log("Booking", booking);
     dispatch(bookFlight(booking));
+    setIsOpen(!isOpen);
+    history.push("/");
   };
 
   return (
-    <button className="btn btn-primary float-right" onClick={handleBooking}>
-      Confirm
-    </button>
+    <>
+      <button className="btn btn-primary float-right" onClick={handleBooking}>
+        Confirm
+      </button>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(!isOpen)}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2>Alert</h2>
+        <div>
+          <h4>Thank you for Booking with us!</h4>
+        </div>
+        <div className="container">
+          <button
+            className="btn btn-primary float-right"
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          >
+            OK
+          </button>
+        </div>
+      </Modal>
+    </>
   );
 };
 

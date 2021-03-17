@@ -19,7 +19,7 @@ export const signin = (userData, history) => {
     try {
       const res = await instance.post("/signin", userData);
       dispatch(setUser(res.data.token));
-      history.replace("/");
+      history.goBack();
     } catch (error) {
       console.log("ERROR: ", error);
     }
