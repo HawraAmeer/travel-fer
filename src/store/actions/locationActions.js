@@ -1,6 +1,7 @@
 import instance from "./instance";
 import * as types from "./types";
 
+// FETCH LOCATIONS
 export const fetchLocations = () => async (dispatch) => {
   try {
     const response = await instance.get("/locations");
