@@ -13,6 +13,7 @@ import FlightForm from "../forms/FlightsForm";
 import AirlineHome from "../AirlineHome";
 import PassengerForm from "../forms/PassengerForm";
 import Booking from "../Booking";
+import AirlineFlights from "../AirlineFlights";
 
 const Routes = () => {
   const user = useSelector((state) => state.authReducer.user);
@@ -23,16 +24,8 @@ const Routes = () => {
         <BookingForm />
       </Route>
 
-      <Route exact path="/passenger">
+      <Route exact path="/passengers">
         <PassengerForm />
-      </Route>
-
-      <Route exact path={["/flights/new", "/flights/:flightId?/edit"]}>
-        <FlightForm />
-      </Route>
-
-      <Route exact path="/airline">
-        <AirlineHome />
       </Route>
 
       <Route exact path="/booking-review">
@@ -43,6 +36,28 @@ const Routes = () => {
         <Home />
       </Route>
       {/* Okey here and down */}
+      <Route path="/404">
+        <NotFound />
+      </Route>
+
+      <Route
+        exact
+        path={[
+          "/:airlineSlug/flights/new",
+          "/:airlineSlug/flights/:flightId/edit",
+        ]}
+      >
+        <FlightForm />
+      </Route>
+
+      <Route exact path="/:airlineSlug/flights">
+        <AirlineFlights />
+      </Route>
+
+      <Route exact path="/airline">
+        <AirlineHome />
+      </Route>
+
       <Route exact path="/profile">
         <Profile />
       </Route>
@@ -57,10 +72,6 @@ const Routes = () => {
 
       <Route exact path="/">
         <Home />
-      </Route>
-
-      <Route path="/404">
-        <NotFound />
       </Route>
 
       <Redirect to="/404" />

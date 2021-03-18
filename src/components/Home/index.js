@@ -1,15 +1,20 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
 // Components
 import Search from "../Search";
 import FlightList from "../FlightList";
 
+// Actions
+
 const Home = () => {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.authReducer.user);
+  const airlineReducer = useSelector((state) => state.airlineReducer);
   const flightReducer = useSelector((state) => state.flightReducer);
 
-  if (user && user.airlineId !== 0) return <Redirect to="/airline" />;
+  if (user && user.airlineId !== 0) return <Redirect to={`/airline`} />;
 
   return (
     <>
