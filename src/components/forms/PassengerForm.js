@@ -18,6 +18,10 @@ function PassengerForm({ passengers, setPassengers, number }) {
     setPassengers([...passengers, passenger]);
     setDone(!done);
   };
+  console.log(
+    "🚀 ~ file: PassengerForm.js ~ line 7 ~ PassengerForm ~ passenger",
+    passenger
+  );
 
   return (
     <form className="container" onSubmit={handleSubmit}>
@@ -49,13 +53,14 @@ function PassengerForm({ passengers, setPassengers, number }) {
       <div className="mb-3">
         <label className="form-label">Age Group</label>
         <select
+          className="form-control"
           name="ageGroup"
           onChange={handleChange}
-          className="form-control"
         >
-          <option value="Infant">Infant</option>
-          <option value="Child">Child</option>
+          <option value="">choose ...</option>
           <option value="Adult">Adult</option>
+          <option value="Child">Child</option>
+          <option value="Infant">Infant</option>
         </select>
       </div>
 

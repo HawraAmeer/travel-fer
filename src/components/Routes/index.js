@@ -14,30 +14,36 @@ import AirlineHome from "../AirlineHome";
 import PassengerForm from "../forms/PassengerForm";
 import Booking from "../Booking";
 import AirlineFlights from "../AirlineFlights";
+import ReturnFlights from "../ReturnFlights";
+import GoFlights from "../GoFlights";
 
 const Routes = () => {
   // const user = useSelector((state) => state.authReducer.user);
 
   return (
     <Switch>
-      <Route exact path="/booking">
-        <BookingForm />
-      </Route>
-
-      <Route exact path="/passengers">
-        <PassengerForm />
+      <Route path="/404">
+        <NotFound />
       </Route>
 
       <Route exact path="/booking-review">
         <Booking />
       </Route>
 
-      <Route exact path="/return-flight">
-        <Home />
+      <Route exact path="/passengers">
+        <PassengerForm />
       </Route>
-      {/* Okey here and down */}
-      <Route path="/404">
-        <NotFound />
+
+      <Route path="/booking">
+        <BookingForm />
+      </Route>
+
+      <Route path="/return-flights">
+        <ReturnFlights />
+      </Route>
+
+      <Route path="/flights">
+        <GoFlights />
       </Route>
 
       <Route

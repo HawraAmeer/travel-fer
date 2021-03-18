@@ -1,13 +1,14 @@
-import { Link, useHistory } from "react-router-dom";
+// Components
 import BookButton from "../buttons/BookButton";
 
-const FlightItem = ({ flight, airlineId }) => {
-  const history = useHistory();
-
+const FlightItem = ({ flight, seat, summury }) => {
   return (
     <>
       <li className="list-group-item">
-        <p>Airline: {flight.airline.name}</p>
+        <p>
+          Airline: {flight.airline.name} | Price:{" "}
+          {seat === "economy" ? flight.ePrice : flight.bPrice}
+        </p>
         <p>
           Departure: {flight.departure.name} | {flight.depDate} |{" "}
           {flight.depTime}
@@ -16,25 +17,11 @@ const FlightItem = ({ flight, airlineId }) => {
           Arrival Airport: {flight.arrival.name} | {flight.arrDate} |{" "}
           {flight.arrTime}
         </p>
-        <p>
-          Business Seats: {flight.business} | economy Seats: {flight.economy} |
-          Price: {flight.price}
-        </p>
 
-        {!airlineId && history.location.pathname === "/" && (
-          <BookButton flight={flight} />
-        )}
-
-        {airlineId && (
-          <Link
-            className="navbar-brand"
-            to={{
-              pathname: `/flights/${flight.id}/edit`,
-              state: { airlineId: flight.airlineId },
-            }}
-          >
-            <button className="btn btn-primary float-right">Edit</button>
-          </Link>
+        {!summury && (
+          <div>
+            <BookButton flight={flight} />
+          </div>
         )}
       </li>
     </>

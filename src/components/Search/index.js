@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import moment from "moment";
 
 // Components
-import Type from "./Type";
 import Airport from "./Airport";
 import Date from "./Date";
 import Passengers from "./Passengers";
 import SeatsType from "./SeatsType";
+import Type from "./Type";
 
 // Actions
 import { searchFlight } from "../../store/actions/flightActions";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const search = useSelector((state) => state.flightReducer.searchFlight);
-  console.log("🚀 ~ file: index.js ~ line 19 ~ Search ~ search", search);
+  const history = useHistory();
+  const flightReducer = useSelector((state) => state.flightReducer);
+
+  const [search, setSearch] = useState(null);
 
   useEffect(() => {
     checkSearch();
@@ -23,45 +26,55 @@ const Search = () => {
 
   const [flight, setFlight] = useState(
     search ?? {
-      depAirport: 0,
-      arrAirport: 0,
+      depAirport: "",
+      arrAirport: "",
       depDate: moment().format("YYYY-MM-DD"),
       returnDate: moment().add(1, "days").format("YYYY-MM-DD"),
       passengers: 1,
-      seat: "economy", // or business
-      type: "roundtrip", // or oneway
+      seat: "economy",
+      type: "roundtrip",
     }
   );
-  console.log("🚀 ~ file: index.js ~ line 22 ~ Search ~ flight", flight);
 
   const checkSearch = () => {
-    if (search) setFlight(search);
+    if (history.location.pathname === "/flights") {
+      setSearch(flightReducer.goSearch);
+    } else if (history.location.pathname === "/return-flights") {
+      setSearch(flightReducer.returnSearch);
+    }
   };
 
   const handleSearch = (event) => {
     event.preventDefault();
-    dispatch(searchFlight(flight));
+    if (history.location.pathname === "/flights") {
+      dispatch(searchFlight(flight, "go"));
+    } else if (history.location.pathname === "/return-flights") {
+      dispatch(searchFlight(flight, "return"));
+    } else {
+      dispatch(searchFlight(flight, "go"));
+      history.push("/flights");
+    }
   };
 
   return (
     <div className="container">
       <form onSubmit={handleSearch}>
         <div className="row g-3">
-          <div className="col">
+          <div className="col-auto">
             <Airport flight={flight} setFlight={setFlight} type="depAirport" />
           </div>
-          <div className="col">
+          <div className="col-auto">
             <Airport flight={flight} setFlight={setFlight} type="arrAirport" />
           </div>
-          <div className="col">
+          <div className="col-auto">
             <Date flight={flight} setFlight={setFlight} type="depDate" />
           </div>
-          <div className="col">
-            {flight.type === "roundtrip" && (
+          {flight.type === "roundtrip" && (
+            <div className="col-auto">
               <Date flight={flight} setFlight={setFlight} type="returnDate" />
-            )}
-          </div>
-          <div className="col">
+            </div>
+          )}
+          <div className="col-auto">
             <Passengers flight={flight} setFlight={setFlight} />
           </div>
         </div>

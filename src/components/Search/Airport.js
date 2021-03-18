@@ -22,7 +22,6 @@ const Airport = ({ flight, setFlight, type }) => {
         className="form-control"
         list="datalistOptions"
         placeholder="Type to search..."
-        value={findName(flight[type])}
         onChange={(event) => {
           setFlight({ ...flight, [type]: findId(event.target.value) });
         }}

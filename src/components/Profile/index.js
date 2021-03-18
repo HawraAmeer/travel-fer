@@ -26,7 +26,7 @@ const Profile = () => {
   if (!user) return <Redirect to="/" />;
 
   if (userReducer.loading) return <Loading />;
-  console.log(userReducer.history);
+
   const handleChange = (event) =>
     setUser({ ...user, [event.target.name]: event.target.value });
 

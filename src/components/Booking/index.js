@@ -31,10 +31,18 @@ const Booking = () => {
   return (
     <div className="container">
       <p>Go Flight</p>
-      <FlightItem flight={flightReducer.goFlight} />
+      <FlightItem
+        flight={flightReducer.goFlight}
+        seat={flightReducer.goSearch.seat}
+        summury="true"
+      />
       <br />
       <p>Back Flight</p>
-      <FlightItem flight={flightReducer.returnFlight} />
+      <FlightItem
+        flight={flightReducer.returnFlight}
+        seat={flightReducer.goSearch.seat}
+        summury="true"
+      />
       <br />
       {passengers.map((passenger, index) => (
         <div key={Math.random()}>
@@ -47,7 +55,7 @@ const Booking = () => {
       ))}
       {user && (
         <div>
-          <ConfirmButton user={user} />
+          <ConfirmButton user={user} seat={flightReducer.goSearch.seat} />
         </div>
       )}
       <div>

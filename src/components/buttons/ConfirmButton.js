@@ -4,7 +4,7 @@ import { bookFlight } from "../../store/actions/flightActions";
 import Modal from "react-modal";
 import { useHistory } from "react-router";
 
-const ConfirmButton = ({ user }) => {
+const ConfirmButton = ({ user, seat }) => {
   const customStyles = {
     content: {
       top: "50%",
@@ -27,16 +27,23 @@ const ConfirmButton = ({ user }) => {
   const [booking, setBooking] = useState({
     user: user === "guest" ? "guest" : { userId: user.id, email: user.email },
     passengers: passengers,
-    goFlight: { flightId: goFlight.id, seat: "economy" },
-    returnFlight: { flightId: returnFlight.id, seat: "economy" },
+    goFlight: { flightId: goFlight.id, seat, price: goFlight[seat] },
+    returnFlight: {
+      flightId: returnFlight.id,
+      seat,
+      price: returnFlight[seat],
+    },
   });
+  console.log(
+    "🚀 ~ file: ConfirmButton.js ~ line 28 ~ ConfirmButton ~ booking",
+    booking
+  );
 
   Modal.setAppElement("#root");
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleBooking = () => {
-    console.log("Booking", booking);
     dispatch(bookFlight(booking));
     setIsOpen(!isOpen);
     history.push("/");

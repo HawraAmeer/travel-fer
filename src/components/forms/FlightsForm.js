@@ -55,7 +55,6 @@ const FlightForm = () => {
     history.goBack();
   };
 
-  console.log(flight);
   return (
     <form className="container" onSubmit={handleSubmit}>
       <h1>{foundFlight ? "Update" : "Create"} Flight</h1>

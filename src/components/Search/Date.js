@@ -3,6 +3,18 @@ import moment from "moment";
 const Date = ({ flight, setFlight, type, airline }) => {
   const today = moment();
 
+  const handleChange = (event) => {
+    if (type === "depDate")
+      setFlight({
+        ...flight,
+        [type]: event.target.value,
+        returnDate: moment(event.target.value)
+          .add(1, "days")
+          .format("YYYY-MM-DD"),
+      });
+    else setFlight({ ...flight, [type]: event.target.value });
+  };
+
   return (
     <>
       <label>{type === "depDate" ? "Departing Date" : "Returning Date"}</label>
@@ -17,9 +29,7 @@ const Date = ({ flight, setFlight, type, airline }) => {
             : flight.depDate
         }
         value={flight[type]}
-        onChange={(event) =>
-          setFlight({ ...flight, [type]: event.target.value })
-        }
+        onChange={handleChange}
       />
     </>
   );

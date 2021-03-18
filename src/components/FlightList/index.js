@@ -1,27 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 // Components
 import Loading from "../Loading";
 import Filter from "../Filter";
 import FlightItem from "./FlightItem";
+import { useHistory } from "react-router";
 
-const FlightList = ({ flights, airlineId }) => {
+const FlightList = ({ flights }) => {
+  const history = useHistory();
+
   const airlines = [...new Set(flights.map((flight) => flight.airline.name))];
+  const flightReducer = useSelector((state) => state.flightReducer);
+
+  const [seat, setSeat] = useState("economy");
+
+  useEffect(() => {
+    if (flightReducer.goSearch)
+      setSeat(
+        history.location.pathname === "/flights"
+          ? flightReducer.goSearch.seat
+          : seat
+      );
+  }, [flightReducer, history.location.pathname]);
 
   const maxRange = () => {
+    const price = seat === "economy" ? "ePrice" : "bPrice";
     let max = 0;
     flights.forEach((flight) => {
-      if (flight.price > max) max = flight.price;
+      if (flight[price] > max) max = flight[price];
     });
     return max;
   };
 
   const minRange = () => {
+    const price = seat === "economy" ? "ePrice" : "bPrice";
     let min = maxRange();
     flights.forEach((flight) => {
-      if (flight.price < min) min = flight.price;
+      if (flight[price] < min) min = flight[price];
     });
     return min;
   };
@@ -36,7 +52,7 @@ const FlightList = ({ flights, airlineId }) => {
     if (filter.airline.length !== 0 && filter.time !== null) {
       return list.filter(
         (item) =>
-          item.price <= filter.price &&
+          item[seat === "economy" ? "ePrice" : "bPrice"] <= filter.price &&
           filter.airline.includes(item.airline.name) &&
           +item.depTime.split(":")[0] >= +(filter.time - 4) &&
           +item.depTime.split(":")[0] < +filter.time
@@ -44,23 +60,26 @@ const FlightList = ({ flights, airlineId }) => {
     } else if (filter.airline.length !== 0) {
       return list.filter(
         (item) =>
-          item.price <= filter.price &&
+          item[seat === "economy" ? "ePrice" : "bPrice"] <= filter.price &&
           filter.airline.includes(item.airline.name)
       );
     } else if (filter.time !== null) {
       return list.filter(
         (item) =>
-          item.price <= filter.price &&
+          item[seat === "economy" ? "ePrice" : "bPrice"] <= filter.price &&
           +item.depTime.split(":")[0] >= +(filter.time - 4) &&
           +item.depTime.split(":")[0] < +filter.time
       );
     } else {
-      return list.filter((item) => item.price <= filter.price);
+      return list.filter(
+        (item) => item[seat === "economy" ? "ePrice" : "bPrice"] <= filter.price
+      );
     }
   };
 
-  const flightList = filtering(flights).map((flight) => (
-    <FlightItem flight={flight} key={flight.id} airlineId={airlineId} />
+  const flightList = filtering(flights);
+  const filteredList = flightList.map((flight) => (
+    <FlightItem flight={flight} key={flight.id} seat={seat} />
   ));
 
   const flightLoading = useSelector((state) => state.flightReducer.loading);
@@ -68,36 +87,30 @@ const FlightList = ({ flights, airlineId }) => {
   if (flightLoading) return <Loading />;
 
   return (
-    <div className="container">
-      <div className="row">
-        {airlineId && (
-          <Link
-            to={{
-              pathname: `/flights/new`,
-              state: { airlineId },
-            }}
-          >
-            <button className="btn btn-primary">Add New</button>
-          </Link>
-        )}
-      </div>
+    <>
+      {flights.length === 0 ? (
+        <p>NO FLIGHTS</p>
+      ) : (
+        <div className="container">
+          <div className="row">
+            <div className="col-auto">
+              <Filter
+                filter={filter}
+                setFilter={setFilter}
+                min={minRange()}
+                max={maxRange()}
+                airlines={airlines}
+                resultsLength={flightList.length}
+              />
+            </div>
 
-      <div className="row">
-        <div className="col-auto">
-          <Filter
-            filter={filter}
-            setFilter={setFilter}
-            min={minRange()}
-            max={maxRange()}
-            airlines={airlines}
-            resultsLength={flightList.length}
-          />
+            <div className="col">
+              <ul className="list-group">{filteredList}</ul>
+            </div>
+          </div>
         </div>
-        <div className="col">
-          <ul className="list-group">{flightList}</ul>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
