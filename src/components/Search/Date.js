@@ -1,7 +1,19 @@
 import moment from "moment";
 
-const Date = ({ flight, setFlight, type }) => {
-  const today = moment().format("YYYY-MM-DD");
+const Date = ({ flight, setFlight, type, airline }) => {
+  const today = moment();
+
+  const handleChange = (event) => {
+    if (type === "depDate")
+      setFlight({
+        ...flight,
+        [type]: event.target.value,
+        returnDate: moment(event.target.value)
+          .add(1, "days")
+          .format("YYYY-MM-DD"),
+      });
+    else setFlight({ ...flight, [type]: event.target.value });
+  };
 
   return (
     <>
@@ -9,11 +21,15 @@ const Date = ({ flight, setFlight, type }) => {
       <input
         className="form-control"
         type="date"
-        min={type === "depDate" ? today : flight.depDate}
-        value={flight[type]}
-        onChange={(event) =>
-          setFlight({ ...flight, [type]: event.target.value })
+        min={
+          airline
+            ? today.add(1, "days").format("YYYY-MM-DD")
+            : type === "depDate"
+            ? today.format("YYYY-MM-DD")
+            : flight.depDate
         }
+        value={flight[type]}
+        onChange={handleChange}
       />
     </>
   );

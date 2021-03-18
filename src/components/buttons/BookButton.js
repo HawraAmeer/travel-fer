@@ -7,31 +7,57 @@ const BookButton = ({ flight }) => {
   const history = useHistory();
 
   const flightReducer = useSelector((state) => state.flightReducer);
+  console.log(
+    "🚀 ~ file: BookButton.js ~ line 10 ~ BookButton ~ flightReducer",
+    flightReducer
+  );
 
   const bookFlight = () => {
     dispatch(setFlight(flight));
-    if (flightReducer.searchFlight.type === "oneway") {
-      history.push("/booking");
-    } else {
-      const returnFlight = {
-        depAirport: flight.arrival.id,
-        arrAirport: flight.departure.id,
-        depDate: flightReducer.searchFlight.returnDate,
-        passengers: flightReducer.searchFlight.passengers,
-        seat: flightReducer.searchFlight.seat,
-        type: "oneway",
-      };
-      if (
-        flightReducer.searchFlight.depDate ===
-        flightReducer.searchFlight.returnDate
-      )
-        returnFlight.arrTime = flight.arrTime;
+    if (flightReducer.goSearch && !flightReducer.returnSearch) {
+      if (flightReducer.goSearch.type === "oneway")
+        history.push("/booking", { seat: flightReducer.goSearch.seat });
+      else {
+        const returnFlight = {
+          depAirport: flight.arrival.id,
+          arrAirport: flight.departure.id,
+          depDate: flightReducer.goSearch.returnDate,
+          passengers: flightReducer.goSearch.passengers,
+          seat: flightReducer.goSearch.seat,
+          type: "oneway",
+        };
+        if (
+          flightReducer.goSearch.depDate === flightReducer.goSearch.returnDate
+        )
+          returnFlight.arrTime = flight.arrTime;
 
-      dispatch(searchFlight(returnFlight));
-      history.push("/");
+        dispatch(searchFlight(returnFlight));
+        history.push("/return-flights");
+      }
+    } else if (flightReducer.returnSearch) {
+      if (flightReducer.returnSearch.type === "oneway")
+        history.push("/booking", { seat: flightReducer.returnSearch.seat });
+      else {
+        const returnFlight = {
+          depAirport: flight.arrival.id,
+          arrAirport: flight.departure.id,
+          depDate: flightReducer.returnSearch.returnDate,
+          passengers: flightReducer.returnSearch.passengers,
+          seat: flightReducer.returnSearch.seat,
+          type: "oneway",
+        };
+        if (
+          flightReducer.returnSearch.depDate ===
+          flightReducer.returnSearch.returnDate
+        )
+          returnFlight.arrTime = flight.arrTime;
+
+        dispatch(searchFlight(returnFlight));
+        history.push("/return-flights");
+      }
     }
-    console.log(flight);
   };
+
   return (
     <button className="btn btn-primary float-right" onClick={bookFlight}>
       Book

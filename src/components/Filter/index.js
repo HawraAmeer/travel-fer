@@ -37,7 +37,7 @@ const Filter = ({ filter, setFilter, min, max, airlines, resultsLength }) => {
           <input
             className="form-range"
             type="range"
-            step={10}
+            step={1}
             min={min}
             max={max}
             value={filter.price}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-// Store
+// Actions
 import { signup } from "../../store/actions/authActions";
 
 const Signup = () => {
@@ -10,9 +10,11 @@ const Signup = () => {
   const history = useHistory();
 
   const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
     username: "",
     password: "",
-    email: "",
   });
 
   const handleChange = (event) =>
@@ -27,6 +29,26 @@ const Signup = () => {
     <div className="container">
       <h3>Sign up</h3>
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>First Name</label>
+          <input
+            name="firstName"
+            value={user.firstName}
+            type="text"
+            className="form-control"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Last Name</label>
+          <input
+            name="lastName"
+            value={user.lastName}
+            type="text"
+            className="form-control"
+            onChange={handleChange}
+          />
+        </div>
         <div className="form-group">
           <label>Email</label>
           <input

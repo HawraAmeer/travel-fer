@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
+
+// Components
+import Loading from "../Loading";
 
 // Actions
 import { fetchAirline } from "../../store/actions/airlineActions";
-import { airlineFlights } from "../../store/actions/flightActions";
-
-import Loading from "../Loading";
-import FlightList from "../FlightList";
 
 const AirlineHome = () => {
   const dispatch = useDispatch();
@@ -15,27 +15,32 @@ const AirlineHome = () => {
 
   useEffect(() => {
     dispatch(fetchAirline(user.airlineId));
-    dispatch(airlineFlights(user.airlineId));
-  });
+  }, [dispatch, user.airlineId]);
 
   const airlineLoading = useSelector((state) => state.airlineReducer.loading);
-  const flightsLoading = useSelector((state) => state.flightReducer.loading);
   const airline = useSelector((state) => state.airlineReducer.airline);
-  const flights = useSelector((state) => state.flightReducer.flights);
 
-  if (!user || !user.isAirline) return <Redirect to="/" />;
+  if (!user || user.airlineId === 0) return <Redirect to="/" />;
 
-  if (airlineLoading && flightsLoading) return <Loading />;
+  if (airlineLoading) return <Loading />;
 
   return (
     <>
       {airline && (
         <>
           <h2>{airline.name}</h2>
-          {/* <img src={airline.image} alt={airline.name} /> */}
+          <img src={airline.logo} alt={airline.name} style={{ width: 1000 }} />
+          <br />
+          <Link
+            to={{
+              pathname: `/${airline.slug}/flights`,
+              state: { airline: airline },
+            }}
+          >
+            <button className="btn btn-primary">Flights List</button>
+          </Link>
         </>
       )}
-      {flights && <FlightList flights={flights} airlineId={airline.id} />}
     </>
   );
 };

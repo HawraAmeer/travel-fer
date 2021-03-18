@@ -1,44 +1,27 @@
 import { Redirect, Route, Switch } from "react-router";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 // Components
+import NotFound from "../NotFound";
+import Home from "../Home";
 import Signin from "../authentication/Signin";
 import Signup from "../authentication/Signup";
 import Profile from "../Profile";
 
-import NotFound from "../NotFound";
-
 import BookingForm from "../forms/BookingForm";
 import FlightForm from "../forms/FlightsForm";
-
 import AirlineHome from "../AirlineHome";
-import Home from "../Home";
 import PassengerForm from "../forms/PassengerForm";
 import Booking from "../Booking";
-import ProfileItem from "../Profile/ProfileItem";
-
+import AirlineFlights from "../AirlineFlights";
+import ReturnFlights from "../ReturnFlights";
+import GoFlights from "../GoFlights";
 
 const Routes = () => {
-  const user = useSelector((state) => state.authReducer.user);
+  // const user = useSelector((state) => state.authReducer.user);
 
   return (
     <Switch>
-      <Route exact path="/booking">
-        <BookingForm />
-      </Route>
-
-      <Route exact path="/passenger">
-        <PassengerForm />
-      </Route>
-
-      <Route exact path={["/flights/new", "/flights/:flightId?/edit"]}>
-        <FlightForm />
-      </Route>
-
-      <Route exact path="/flights">
-        <AirlineHome />
-      </Route>
-
       <Route path="/404">
         <NotFound />
       </Route>
@@ -47,8 +30,38 @@ const Routes = () => {
         <Booking />
       </Route>
 
-      <Route exact path="/return-flight">
-        <Home />
+      <Route exact path="/passengers">
+        <PassengerForm />
+      </Route>
+
+      <Route path="/booking">
+        <BookingForm />
+      </Route>
+
+      <Route path="/return-flights">
+        <ReturnFlights />
+      </Route>
+
+      <Route path="/flights">
+        <GoFlights />
+      </Route>
+
+      <Route
+        exact
+        path={[
+          "/:airlineSlug/flights/new",
+          "/:airlineSlug/flights/:flightId/edit",
+        ]}
+      >
+        <FlightForm />
+      </Route>
+
+      <Route exact path="/:airlineSlug/flights">
+        <AirlineFlights />
+      </Route>
+
+      <Route exact path="/airline">
+        <AirlineHome />
       </Route>
 
       <Route exact path="/profile">

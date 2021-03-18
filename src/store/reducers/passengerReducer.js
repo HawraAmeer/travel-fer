@@ -7,10 +7,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_PASSENGERS:
-      return {
-        ...state,
-        passengers: action.payload,
-      };
+      return { ...state, passengers: action.payload };
 
     default:
       return state;
