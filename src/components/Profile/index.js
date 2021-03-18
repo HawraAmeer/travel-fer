@@ -68,36 +68,13 @@ const Profile = () => {
         )}
       </div>
       <br />
-      <div className="container">
-        <table className="table">
-          <thead>
-            <h3>Booking History</h3>
-            <tr>
-              <td>
-                <tr>Departure</tr>
-                <tr>
-                  <td>Airport</td>
-                  <td>Date</td>
-                  <td>Time</td>
-                </tr>
-              </td>
-              <td>
-                <tr>Arrival</tr>
-                <tr>
-                  <td>Airport</td>
-                  <td>Date</td>
-                  <td>Time</td>
-                </tr>
-              </td>
 
-              <td>Seat Type</td>
-              <td># of Passengers</td>
-            </tr>
-          </thead>
-          <tbody>
-            <ProfileItem />
-          </tbody>
-        </table>
+      <div className="container">
+        <h3>Booking History</h3>
+        <div class="card text-center">
+          <ProfileItem />
+          <ProfileItem />
+        </div>
       </div>
     </>
   );
