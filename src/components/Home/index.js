@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
 // Components
@@ -8,8 +8,6 @@ import FlightList from "../FlightList";
 // Actions
 
 const Home = () => {
-  const dispatch = useDispatch();
-
   const user = useSelector((state) => state.authReducer.user);
   const airlineReducer = useSelector((state) => state.airlineReducer);
   const flightReducer = useSelector((state) => state.flightReducer);
@@ -21,9 +19,11 @@ const Home = () => {
       <Search />
       <br />
       {flightReducer.flights.length === 0 && <p>NO FLIGHTS</p>}
-      {!flightReducer.loading && flightReducer.flights.length !== 0 && (
-        <FlightList flights={flightReducer.flights} />
-      )}
+      {!flightReducer.loading &&
+        flightReducer.flights.length !== 0 &&
+        !airlineReducer.airline && (
+          <FlightList flights={flightReducer.flights} />
+        )}
     </>
   );
 };

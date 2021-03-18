@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 // Actions
 import { airlineFlights } from "../../store/actions/flightActions";
+
+// Components
 import Loading from "../Loading";
 import AirlineFlightItem from "./AirlineFlightItem";
 
@@ -16,8 +18,8 @@ const AirlineFlights = () => {
   const flightReducer = useSelector((state) => state.flightReducer);
 
   useEffect(() => {
-    if (airline) dispatch(airlineFlights(airline.id));
-  }, [flightReducer.loading]);
+    dispatch(airlineFlights(airline.id));
+  }, [dispatch, airline.id]);
 
   if (!user || user.airlineId === 0) return <Redirect to="/" />;
   if (flightReducer.loading || !airline) return <Loading />;

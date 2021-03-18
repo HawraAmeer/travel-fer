@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch } from "react-router";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 // Components
 import NotFound from "../NotFound";
@@ -16,7 +16,7 @@ import Booking from "../Booking";
 import AirlineFlights from "../AirlineFlights";
 
 const Routes = () => {
-  const user = useSelector((state) => state.authReducer.user);
+  // const user = useSelector((state) => state.authReducer.user);
 
   return (
     <Switch>

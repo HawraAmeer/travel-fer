@@ -22,7 +22,7 @@ export const searchFlight = (flight, type) => async (dispatch) => {
 // BOOK FLIGHT
 export const bookFlight = (booking) => async () => {
   try {
-    const res = await instance.post("/booking", booking);
+    await instance.post("/booking", booking);
   } catch (error) {
     console.log("Error:", error);
   }

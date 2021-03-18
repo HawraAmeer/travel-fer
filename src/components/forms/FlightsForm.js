@@ -1,29 +1,35 @@
-//********THIS FILE NEED TO BE CLEANED :(
+import moment from "moment";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 
+// Components
+import Airport from "../Search/Airport";
+import Date from "../Search/Date";
+import Duration from "./Duration";
+import Price from "./Price";
+import Seat from "./Seat";
+import Time from "./Time";
+
 // Actions
-import {
-  airlineFlights,
-  createFlight,
-  updateFlight,
-} from "../../store/actions/flightActions";
+import { createFlight, updateFlight } from "../../store/actions/flightActions";
 
 const FlightForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const airlineId = useLocation().state.airlineId;
-  const { airlineSlug, flightId } = useParams();
+  const { flightId } = useParams();
 
   const foundFlight = useSelector((state) =>
     state.flightReducer.flights.find((flight) => flight.id === +flightId)
   );
 
-  const locations = useSelector((state) => state.locationReducer.locations);
-  const locationList = locations.map((location) => (
-    <option value={`${location.id}`}>{location.name}</option>
-  ));
+  if (foundFlight) {
+    foundFlight.depTime = moment(foundFlight.depTime, "H:mm").format("HH:mm");
+    foundFlight.arrTime = moment(foundFlight.arrTime, "H:mm").format("HH:mm");
+    foundFlight.depAirport = foundFlight.departure.id;
+    foundFlight.arrAirport = foundFlight.arrival.id;
+  }
 
   const [flight, setFlight] = useState(
     foundFlight || {
@@ -34,139 +40,92 @@ const FlightForm = () => {
       arrAirport: "",
       duration: "",
       economy: "",
-      business: "",
       ePrice: "",
+      business: "",
       bPrice: "",
     }
   );
 
-  const handleChange = (event) => {
-    setFlight({ ...flight, [event.target.name]: event.target.value });
-  };
-
-  const numChange = (event) => {
-    setFlight({ ...flight, [event.target.name]: +event.target.value });
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (foundFlight) {
       flight.id = foundFlight.id;
       dispatch(updateFlight(flight));
     } else dispatch(createFlight(flight));
-
-    history.push(`/${airlineSlug}/flights`);
+    history.goBack();
   };
 
+  console.log(flight);
   return (
     <form className="container" onSubmit={handleSubmit}>
       <h1>{foundFlight ? "Update" : "Create"} Flight</h1>
       <div className="row">
         <div className="col">
-          <label className="form-label">Departure Airport</label>
-          <select
-            className="custom-select"
-            value={flight.depAirport}
-            onChange={numChange}
-            name="depAirport"
-          >
-            <option value="">Select Departure Airport</option>
-            {locationList}
-          </select>
+          <Airport flight={flight} setFlight={setFlight} type="depAirport" />
         </div>
         <div className="col">
-          <label className="form-label">Arrival Airport</label>
-          <select
-            className="custom-select"
-            value={flight.arrAirport}
-            onChange={numChange}
-            name="arrAirport"
-          >
-            <option value="">Select Arrival Airport</option>
-
-            {locationList}
-          </select>
+          <Airport flight={flight} setFlight={setFlight} type="arrAirport" />
         </div>
       </div>
       <br />
       <div className="row">
         <div className="col">
-          <label className="form-label">Departure Date</label>
-          <input
-            type="date"
-            value={flight.depDate}
-            onChange={handleChange}
-            name="depDate"
-            className="form-control"
+          <Date
+            flight={flight}
+            setFlight={setFlight}
+            type="depDate"
+            airline={true}
           />
         </div>
         <div className="col">
-          <label className="form-label">Departure Time</label>
-          <input
-            type="time"
-            value={flight.depTime}
-            onChange={handleChange}
-            name="depTime"
-            className="form-control"
-          />
+          <Time flight={flight} setFlight={setFlight} type="depTime" />
         </div>
-        <div className="col">
-          <label className="form-label">Flight Duration in Minutes</label>
-          <input
-            type="number"
-            value={flight.duration}
-            onChange={numChange}
-            name="duration"
-            className="form-control"
-          />
-        </div>
+        {foundFlight && (
+          <>
+            <div className="col">
+              <Date
+                flight={flight}
+                setFlight={setFlight}
+                type="arrDate"
+                airline={true}
+              />
+            </div>
+            <div className="col">
+              <Time flight={flight} setFlight={setFlight} type="arrTime" />
+            </div>
+          </>
+        )}
+        {!foundFlight && (
+          <div className="col">
+            <Duration flight={flight} setFlight={setFlight} />
+          </div>
+        )}
       </div>
       <br />
       <div className="row">
         <div className="col">
-          <label className="form-label">Economy Seats</label>
-          <input
-            type="number"
-            value={flight.economy}
-            onChange={numChange}
-            name="economy"
-            className="form-control"
-          />
+          <Seat flight={flight} setFlight={setFlight} type="economy" />
         </div>
         <div className="col">
-          <label className="form-label">Economy Price</label>
-          <input
-            type="number"
-            value={flight.ePrice}
-            onChange={numChange}
-            name="ePrice"
-            className="form-control"
-          />
+          <Price flight={flight} setFlight={setFlight} type="economy" />
         </div>
         <div className="col">
-          <label className="form-label">Buisness Seats</label>
-          <input
-            type="number"
-            value={flight.business}
-            onChange={numChange}
-            name="business"
-            className="form-control"
-          />
+          <Seat flight={flight} setFlight={setFlight} type="business" />
         </div>
         <div className="col">
-          <label className="form-label">Business Price</label>
-          <input
-            type="number"
-            value={flight.bPrice}
-            onChange={numChange}
-            name="bPrice"
-            className="form-control"
-          />
+          <Price flight={flight} setFlight={setFlight} type="business" />
         </div>
       </div>
       <br />
-      <button type="submit" className="btn btn-primary float-right">
+      <button
+        type="submit"
+        className="btn btn-primary float-right"
+        disabled={
+          flight.depAirport === 0 ||
+          flight.arrAirport === 0 ||
+          flight.depAirport === flight.arrAirport
+        }
+      >
         {foundFlight ? "Update" : "Create"}
       </button>
     </form>

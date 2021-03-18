@@ -15,7 +15,7 @@ const AirlineHome = () => {
 
   useEffect(() => {
     dispatch(fetchAirline(user.airlineId));
-  }, [user]);
+  }, [dispatch, user]);
 
   const airlineLoading = useSelector((state) => state.airlineReducer.loading);
   const airline = useSelector((state) => state.airlineReducer.airline);

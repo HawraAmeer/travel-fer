@@ -5,19 +5,32 @@ const AirlineFlightItem = ({ flight }) => {
 
   return (
     <li className="list-group-item">
-      <p>
-        Departure: {flight.departure.name} | {flight.depDate} | {flight.depTime}
-      </p>
-      <p>
-        Arrival Airport: {flight.arrival.name} | {flight.arrDate} |{" "}
-        {flight.arrTime}
-      </p>
-      <p>
-        Business Seats: {flight.business} | Economy Seats: {flight.economy}
-      </p>
-      <p>
-        Business Price: {flight.bPrice} | Economy Price: {flight.ePrice}
-      </p>
+      <div className="row">
+        <div className="col">
+          <p>
+            Departure: {flight.departure.name} | {flight.depDate} |{" "}
+            {flight.depTime}
+          </p>
+        </div>
+        <div className="col">
+          <p>
+            Arrival Airport: {flight.arrival.name} | {flight.arrDate} |{" "}
+            {flight.arrTime}
+          </p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <p>
+            Business Seats: {flight.business} | Economy Seats: {flight.economy}
+          </p>
+        </div>
+        <div className="col">
+          <p>
+            Business Price: {flight.bPrice} | Economy Price: {flight.ePrice}
+          </p>
+        </div>
+      </div>
 
       <Link
         className="navbar-brand"
